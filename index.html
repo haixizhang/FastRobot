@@ -377,9 +377,8 @@
                         <!-- Sub-section 1: ECHO Command -->
                         <h4 class="text-center">1. ECHO Command</h4>
                         <p class="text-justify">
-                        In this code snippet, the Artemis board handles the <code>ECHO</code> command by extracting a string from the incoming BLE message.
+                        The Artemis board handles the <code>ECHO</code> command by extracting a string from the incoming BLE message.
                         It then constructs a new string, adding the prefix <em>"Robot says -> "</em> and the postfix <em>" :)"</em> before transmitting it back.
-                        Sending <em>"HiHello"</em> yields <em>"Robot says -> HiHello :)"</em>, confirming that read and write operations function correctly over BLE.
                         Observing <code>Serial.println(tx_estring_value.c_str())</code> verifies the command’s execution.
                         </p>
                         <img class="img-fluid rounded mb-2"
@@ -398,7 +397,7 @@
                         The <code>SEND_THREE_FLOATS</code> command parses three float values sent from Python in a single message.
                         After successfully extracting the values, it responds with a formatted string <em>"Received: x, y, z"</em>.
                         On the Python side, sending <em>"1|2|3"</em> yields <em>"Received: 1.000, 2.000, 3.000"</em>, demonstrating
-                        multi-field data handling. Debug messages in the serial monitor confirm correct float reception.
+                        multi-field data handling. 
                         </p>
                         <img class="img-fluid rounded mb-2"
                             style="max-width: 600px; height: auto;"
@@ -411,12 +410,10 @@
                         <div class="empty-line"></div>
                         
                         <!-- Sub-section 3: GET_TIME_MILLIS & Notification -->
-                        <h4 class="text-center">3. GET_TIME_MILLIS Notification Handler</h4>
+                        <h4 class="text-center">3. GET_TIME_MILLIS</h4>
                         <p class="text-justify">
                         For <code>GET_TIME_MILLIS</code>, the Arduino code appends <em>"T:"</em> plus <code>millis()</code> to the BLE characteristic.
-                        Python sends an empty command and reads back the timestamp (e.g., <em>"T:123456"</em>). Subscribing to notifications
-                        (<code>ble.start_notify</code>) automatically invokes a handler whenever the characteristic updates. This real-time,
-                        event-based approach is more efficient than polling, enabling continuous monitoring of incoming data.
+                        Python sends an empty command and reads back the timestamp (e.g., <em>"T:123456"</em>). 
                         </p>
                         <img class="img-fluid rounded mb-2"
                             style="max-width: 600px; height: auto;"
@@ -442,7 +439,7 @@
                         <div class="empty-line"></div>
 
                         <!-- Sub-section 5: GET_TIME_STREAM -->
-                        <h4 class="text-center">5. Time Streaming (GET_TIME_STREAM)</h4>
+                        <h4 class="text-center">5. Time Streaming</h4>
                         <p class="text-justify">
                         The <code>GET_TIME_STREAM</code> command continuously sends timestamp data (<em>"T:millis"</em>) from the Artemis over five seconds,
                         pausing briefly to avoid overwhelming BLE. On the Python side, a notification handler records each packet with its arrival time.
@@ -464,7 +461,7 @@
                         <div class="empty-line"></div>
                         
                         <!-- Sub-section 6: STORE_TIME_DATA & SEND_TIME_DATA -->
-                        <h4 class="text-center">6. Storing Timestamps (STORE_TIME_DATA & SEND_TIME_DATA)</h4>
+                        <h4 class="text-center">6. Storing Timestamps</h4>
                         <p class="text-justify">
                         First I predefined a global array with size 100 for time data. Then, similary to <code>5. SEND_TIME_DATA </code>, but instead of immediately sending timestamps, the Artemis uses <code>STORE_TIME_DATA</code> to log data in a global array for five seconds.
                         After the collection period, <code>SEND_TIME_DATA</code> transmits the entire dataset. 
@@ -490,7 +487,7 @@
                         <div class="empty-line"></div>
                         
                         <!-- Sub-section 7: STORE_TEMP_DATA & GET_TEMP_READINGS -->
-                        <h4 class="text-center">7. Storing Temperature and Time (STORE_TEMP_DATA & GET_TEMP_READINGS)</h4>
+                        <h4 class="text-center">7. Storing Temperature and Time</h4>
                         <p class="text-justify">
                         The code adds a second array for temperature readings alongside timestamps, capturing both data types together for five seconds. And similarly, I predefined two global arrays for time and temperature data with both size 100.
                         Then using <code>STORE_TEMP_DATA</code> to log data in both arrays for five seconds. If overfill happens, the code will stop storing data and break the loop.
@@ -518,22 +515,21 @@
                         </p>
 
                         <p class="text-justify">
-                            Thanks to the Artemis board’s 384 kB of RAM, which is 393216 bytes (384*1024), it can store tens of thousands of samples (e.g. 8-bit chars, 16-bit chars, 32 bit floats, 64 bits doubles). Consequently, buffering suits scenarios needing higher sampling rates without real-time requirements, while streaming is better for quick diagnostics and interactive tasks.
+                            Thanks to the Artemis board’s 384 kB of RAM, which is 393216 bytes (384*1024), it can store tens of thousands of messages (e.g. 8-bit chars, 16-bit chars, 32 bit floats, 64 bits doubles). Consequently, buffering suits scenarios needing higher sampling rates without real-time requirements, while streaming is better for quick diagnostics and interactive tasks.
                         </p>
                         <div class="empty-line"></div>
                         
                         <!-- Sub-section 9: Communication Performance -->
-                        <h4 class="text-center">9. Communication Performance (Effective Data Rate & Overhead)</h4>
+                        <h4 class="text-center">9. Communication Performance</h4>
                         <p class="text-justify">
-                        By comparing 5-byte (<em>"Hello"</em>) and 120-byte packets (<em>"XXXXXXXX..."</em>) from the Artemis,
+                        By comparing 5-byte and 120-byte packets (<em>"XXXXXXXX..."</em>) from the Artemis,
                         I measured overhead differences between short and long replies. Short replies have faster round-trip times
                         but yield lower data rates (~28 bytes/s), whereas larger packets slightly increase RTT
-                        but substantially improve throughput (~640 bytes/s). However, sending too many large packets too quickly
-                        can saturate the BLE connection. Balancing packet size, frequency, and reliability is essential to maximize efficiency.
+                        but substantially improve throughput (~667 bytes/s). 
                         </p>
                         <img class="img-fluid rounded mb-2"
                             style="max-width: 600px; height: auto;"
-                            src="assets/img/portfolio/Lab1/9_code.png"
+                            src="assets/img/portfolio/Lab1/9_code_1_new.png"
                             alt="Lab1.B - Sub-section 9 Code"/>
                         <img class="img-fluid rounded mb-2"
                             style="max-width: 600px; height: auto;"
@@ -541,7 +537,20 @@
                             alt="Lab1.B - Sub-section 9 Run1"/>
                         <img class="img-fluid rounded mb-2"
                             style="max-width: 600px; height: auto;"
+                            src="assets/img/portfolio/Lab1/9_run_4.png"
+                            alt="Lab1.B - Sub-section 9 Run1"/>
+                        <p class="text-justify">
+                            I also tested with other packet sizes, and the following two image shows the result of RTT and effective data rate with different packet sizes. The RTT is calculated by the time difference between the sent time and received time. The effective data rate is calculated by the total data size divided by the total time.
+                            From the graphs, the RTT increases gradually with message length, suggesting that BLE handles larger packets efficiently up to a certain limit. And the effective data rate scales nearly linearly with packet size, indicating that larger packets are more efficient for bulk data transfer.
+                            However, excessively large packets sent too frequently may saturate the BLE stack, leading to dropped packets or increased delay.
+
+                        <img class="img-fluid rounded mb-2"
+                            style="max-width: 600px; height: auto;"
                             src="assets/img/portfolio/Lab1/9_run_2.png"
+                            alt="Lab1.B - Sub-section 9 Run2"/>
+                        <img class="img-fluid rounded mb-2"
+                            style="max-width: 600px; height: auto;"
+                            src="assets/img/portfolio/Lab1/9_run_3.png"
                             alt="Lab1.B - Sub-section 9 Run2"/>
                         <div class="empty-line"></div>
                         
@@ -571,7 +580,8 @@
                         <h4 class="text-center">Conclusion</h4>
                         <p class="text-justify">
                         Across Lab 1, I established the foundation of working with the SparkFun RedBoard Artemis Nano, from basic setup and sensor interaction (Lab1.A)
-                        to BLE configuration and data handling (Lab1.B). I explored both real-time streaming and buffered transmission approaches,
+                        to BLE configuration and data handling (Lab1.B). I learned that always match the baud rate of the board and the computer is important for serial communication.
+                        I explored both real-time streaming and buffered transmission approaches,
                         learning how to optimize for throughput and reliability under varying conditions. By examining overhead, packet sizes,
                         and transmission rates, I gained insight into effective wireless communication strategies. These experiences will be invaluable
                         as I progress toward more advanced robot control and sensor fusion in upcoming labs.
