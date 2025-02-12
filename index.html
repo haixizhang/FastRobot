@@ -97,7 +97,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/cake.png" alt="Tasty Cake"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab2/Header.jpg" alt="Lab 2: IMU" style="max-width: 320px; height: auto;"/>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -604,37 +604,388 @@
             </div> <!-- /.modal-content -->
             </div> <!-- /.modal-dialog -->
         </div> <!-- /.modal -->
-  
-  
-  
         <!-- Lab 1 end -->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
+        <!-- Lab 2 start -->
+        <!-- Portfolio Modal-->
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal2Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/cake.png" alt="Tasty Cake"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
+            <div class="modal-content">
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+                    
+                    <!-- Inline style classes -->
+                    <style>
+                    .text-justify {
+                        text-align: justify;
+                    }
+                    .empty-line {
+                        margin-bottom: 1.5rem;
+                    }
+                    </style>
+        
+                    <!-- Lab 2: Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 2: IMU</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                        </div>
+                        <!-- Optional Main Image for Lab 2 -->
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 300px; height: auto;"
+                            src="assets/img/portfolio/Lab2/Header.jpg"
+                            alt="ICM-20948 IMU Example"/>
+                    </div>
+                    </div>
+                    
+                    <!-- Introduction -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">0. Introduction</h3>
+                        <p class="mb-4 text-justify">
+                        This lab focuses on integrating the ICM-20948 IMU with the Artemis board and analyzing sensor data
+                        to better understand pitch, roll, and yaw. I also experimented with the RC car to observe its movements
+                        under different conditions. By examining both accelerometer and gyroscope outputs, the goal is to filter
+                        out noise and produce more stable, accurate readings.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Setup the IMU -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Setup the IMU</h3>
+                        <p class="text-justify">
+                        To begin, I installed the “SparkFun 9DOF IMU Breakout_ICM 20948_Arduino Library” from the Arduino Library Manager.
+                        Next, I connected the IMU to the Artemis board using the QWIIC connectors, as shown in Figure 1.1. Also, the X,Y,Z axes of the IMU can be seen from the board.
+                        Once the connection was established, I opened the <strong>Example1_Basics</strong> sketch from the library to verify
+                        that the board could read basic sensor data, with real-time acceleration and gyroscope values displayed in the Serial Monitor.
+                        Within the example code, a parameter called <em>AD0_VAL</em> appears, which represents the IMU’s I2C address bit
+                        and tells the microcontroller how to recognize the sensor; in this case, <em>AD0_VAL</em> is set to 1
+                        because the ICM-20948 datasheet [1] indicates that the default on the SparkFun breakout board is 1, changing to 0
+                        only when the ADR jumper is closed.
+                        </p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/ujIB0ff_mZ8" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
                             </div>
+                        <p class="text-justify">
+                        When experimenting with the sensor, I observed that the accelerometer and gyroscope respond differently. 
+                        Even though the serial plot is hard to see, the data is clear when printed in the Serial Monitor.
+                        For example, when rotating the IMU on a plane perpendicular to the Z-axis, the accelerometer readings along the X and Y axes
+                        exhibit noticeable fluctuations while the gyroscope readings remain relatively stable. During rapid rotations, the accelerometer
+                        values show larger fluctuations due to the decomposition of gravitational acceleration within the sensor's coordinate system,
+                        and the gyroscope readings also vary as they measure angular velocity. Additionally, I added a simple visual indicator
+                        by programming the LED to blink three times on startup, confirming that the board is running once the IMU sensors have been initialized.
+                        <img class="img-fluid rounded mb-2 d-block mx-auto"
+                        style="max-width: 300px; height: auto;"
+                        src="assets/img/portfolio/Lab2/led.png"
+                        alt="LED"/>
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Accelerometer Section -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Accelerometer</h3>
+        
+                        <!-- 2.1 Accelerometer Data Collection and Accuracy -->
+                        <h4 class="text-center">2.1 Accelerometer Data Collection and Accuracy</h4>
+                        <p class="text-justify">
+                        <img class="img-fluid rounded mb-2 d-block mx-auto"
+                            style="max-width: 600px; height: auto;"
+                            src="assets/img/portfolio/Lab2/2-1-run.png"
+                            alt="Lab2 2-2"/>
+                        In Arduino, I retrieve the accelerometer data by calling <code>myICM.getAGMT()</code> and then compute the pitch and roll using the equations (inside a new case called <code>GET_PITCH_ROLL</code>, as shown in the figure in 2.3):
+                        <br/>
+                        <div style="text-align: center;">
+                            <code>pitchDeg = atan2(ax, az) * 180.0f / M_PI</code> <br/>
+                            <code>rollDeg = atan2(ay, az) * 180.0f / M_PI</code>
+                        </div>
+                        </p>
+                        <p class="text-justify">
+                        I then moved the IMU board and observed the sensor’s output at {-90°, 0°, 90°} pitch and roll orientations, as demonstrated in the lab video and following table.
+                        The resulting measurements indicate that the sensor provides accurate readings within expected limits.
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Rotation\Degrees</th>
+                                    <th>-90</th>
+                                    <th>0</th>
+                                    <th>90</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pitch</td>
+                                    <td>-88.2</td>
+                                    <td>-0.1</td>
+                                    <td>88.3</td>
+                                </tr>
+                                <tr>
+                                    <td>Roll</td>
+                                    <td>-87.6</td>
+                                    <td>0.1</td>
+                                    <td>87.4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/yIIlFEU1LCM" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                        <div class="empty-line"></div>
+        
+                        <!-- 2.2 Noise Frequency Analysis using FFT -->
+                        <h4 class="text-center">2.2 Noise Frequency Analysis using FFT</h4>
+                        <p class="text-justify">
+                        In Arduino, I defined a new case function called <code>GET_PITCH_ROLL</code>, which collects, calculates, and sends the data to the Jupyter Side.
+                        After recording a short set of data, I implemented a Fast Fourier Transform (FFT) on the collected accelerometer readings in Python.
+                        By calculating the sampling frequency from the time differences between consecutive data points, I computed the FFT to determine
+                        the magnitude of each frequency component. This analysis reveals dominant noise frequencies, aiding in selecting a suitable cutoff
+                        frequency for filtering. And here the sample frequency is only 16.72 Hz, and the reason is that I am using <code>time.sleep()</code> after <code>ble.send_command(CMD.GET_PITCH_ROLL, "")</code>in the Jupyter Notebook side, which will pause the process and cause the delay.
+                        <img class="img-fluid rounded mb-2 d-block mx-auto"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/2-2-code-1.png"
+                        alt="Lab2 2-2"/>
+                        <img class="img-fluid rounded mb-2 d-block mx-auto"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/2-2-run-1.png"
+                        alt="Lab2 2-2"/>
+                        <div class="d-flex justify-content-center">
+                            <img class="img-fluid rounded mb-2 mr-2"
+                            style="max-width: 300px; height: auto;"
+                            src="assets/img/portfolio/Lab2/2-2-run-2.png"
+                            alt="Lab2 2-2"/>
+                            <img class="img-fluid rounded mb-2"
+                            style="max-width: 300px; height: auto;"
+                            src="assets/img/portfolio/Lab2/2-2-run-3.png"
+                            alt="Lab2 2-2"/>
+                        </div>
+                        </p>
+                        <div class="empty-line"></div>
+        
+                        <!-- 2.3 Low-Pass Filter Implementation and Discussion -->
+                        <h4 class="text-center">2.3 Low-Pass Filter Implementation and Discussion</h4>
+                        <p class="text-justify">
+                        Based on the FFT results, I selected a cutoff frequency of 2 Hz for a simple single-pole IIR low-pass filter. The filter coefficient
+                        is calculated using the chosen cutoff frequency and the sampling interval. Applying this filter smoothed out the signal
+                        and visibly reduced high-frequency noise, though the overall improvement was not that significant. This minor improvement is likely because
+                        the ICM-20948 already applies a built-in low-pass filter, limiting the benefit of further external filtering [1].
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/2-3-code.png"
+                        alt="Lab2 2-3"/>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/2-3-run.png"
+                        alt="Lab2 2-3"/>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Gyroscope Section -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. Gyroscope</h3>
+        
+                        <!-- 3.1 Gyroscope Angle Computation and Comparison -->
+                        <h4 class="text-center">3.1 Gyroscope Angle Computation and Comparison</h4>
+                        <p class="text-justify">
+                        In the Arduino code, I implemented the <code>GET_FROM_GYROSCOPE</code> case to compute the pitch, roll, and yaw angles by integrating
+                        the gyroscope’s angular rates over time. The integration uses <code>micros()</code> to determine <em>dt</em> between updates (<code>Time Difference / 1E6</code>),
+                        continuously updating these gyro-based angles. I also compute pitch and roll from the accelerometer via <code>atan2</code> 
+                        for comparison. As shown in the following images, although the gyroscope data is stable in detecting quick orientation changes, it tends to drift over time,
+                        making it less accurate than the accelerometer over extended periods because small cumulative integration errors result in significant drift. 
+                        By increasing the sampling frequency and reducing the time between successive readings, the system minimizes these errors, thereby reducing drift and ensuring that the gyroscope’s measurements more accurately reflect the stable long-term readings of the accelerometer.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/3-1-code.png"
+                        alt="Lab2 3-1"/>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/3-1-run.png"
+                        alt="Lab2 3-1"/>
+                        <div class="empty-line"></div>
+        
+                        <!-- 3.2 Complementary Filter Implementation and Evaluation -->
+                        <h4 class="text-center">3.2 Complementary Filter Implementation and Evaluation</h4>
+                        <p class="text-justify">
+                        To achieve a more accurate and stable estimation of pitch and roll, I integrated a complementary filter that blends
+                        gyroscope and accelerometer data. The accelerometer angles, first smoothed by a low-pass filter, are combined with the
+                        gyroscope’s integrated angles using a weighting factor (<code>alpha_g = 0.8</code>). This approach leverages the gyro’s
+                        short-term responsiveness while correcting drift with the accelerometer’s long-term stability. Tests across various
+                        orientation changes and movements confirm that the complementary filter effectively reduces drift and remains resilient
+                        to rapid vibrations.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/3-2-code.png"
+                        alt="Lab2 3-2"/>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/3-2-run.png"
+                        alt="Lab2 3-2"/>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Sample Data Section -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">4. Sample Data</h3>
+        
+                        <!-- 4.1 Speeding Up the Main Loop -->
+                        <h4 class="text-center">4.1 Speeding Up the Main Loop</h4>
+                        <p class="text-justify">
+                        To maximize the sampling rate, I removed any delays and unnecessary <code>Serial.print</code> statements
+                        from the main loop. Instead of waiting for new data in a blocking manner, the loop checks
+                        <code>myICM.dataReady()</code> each iteration and proceeds immediately if it is false.
+                        This method allows the main loop to run at higher speeds than the IMU’s own update rate.
+                        After testing, I collected 1723 samples in 5 seconds (around 340 Hz). 
+                        Additionally, I introduced a <em>failed_test</em> counter that increments whenever <code>myICM.dataReady()</code> is false;
+                        in practice, <em>failed_test</em> remained at 0, indicating the IMU output rate was fast enough to supply data each loop cycle.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/4-1-code.png"
+                        alt="Lab2 4-1"/>
+                        <div class="empty-line"></div>
+        
+                        <!-- 4.2 Storing Time-Stamped IMU Data Using Flags -->
+                        <h4 class="text-center">4.2 Storing Time-Stamped IMU Data Using Flags</h4>
+                        <p class="text-justify">
+                        For data collection, I use a <code>recordingActive</code> flag to control when the code should store sensor readings.
+                        When the <code>STORE_IMU_DATA</code> command is received, <code>recordingActive</code> is set to <em>true</em>.
+                        Each time <code>myICM.dataReady()</code> returns <em>true</em>, the IMU data and timestamps (in milliseconds) are stored
+                        in the allocated arrays (<code>axArray</code>, <code>ayArray</code>, <code>azArray</code>, <code>gxArray</code>, <code>gyArray</code>, <code>gzArray</code>).
+                        Once the 5-second duration expires or the arrays fill up, <code>recordingActive</code> is set to <em>false</em>, preventing further data logging.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/4-2-code.png"
+                        alt="Lab2 4-2"/>
+        
+                        <!-- 4.3 Data Structure Choices and Memory Considerations -->
+                        <h4 class="text-center">4.3 Data Structure Choices and Memory Considerations</h4>
+                        <p class="text-justify">
+                        I chose separate <code>float</code> arrays for accelerometer (X, Y, Z) and gyroscope (X, Y, Z) readings. This method keeps the code more organized
+                        and simplifies post-processing and plotting. Using <code>float</code> strikes a balance between precision and memory usage—more than enough
+                        for typical sensor data without the overhead of <code>double</code>. With <code>MAX_SAMPLES</code> set to 2000, the Artemis has sufficient memory
+                        to record several thousand IMU samples without exceeding its limits, guaranteeing at least five seconds of data capture at typical sampling rates.
+                        In fact, after uploading, the Artemis reports around 290kB of RAM available, which is more than enough for the current application.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/4-3-code.png"
+                        alt="Lab2 4-3"/>
+                        <div class="empty-line"></div>
+        
+                        <!-- 4.4 Demonstrating 5-Second Data Capture and Bluetooth Transfer -->
+                        <h4 class="text-center">4.4 Demonstrating 5-Second Data Capture and Bluetooth Transfer</h4>
+                        <p class="text-justify">
+                        To record IMU data for five seconds, the code sets <code>recordingActive</code> to <em>true</em> upon receiving the
+                        <code>STORE_IMU_DATA</code> command. Samples are stored in arrays until five seconds elapse or the array hits <code>MAX_SAMPLES</code>.
+                        Afterward, the <code>SEND_IMU_DATA</code> command triggers a loop that sends the entire dataset via Bluetooth to a Python
+                        notification handler, which parses each line and appends values to <em>time_data</em>, <em>ax_data</em>, <em>ay_data</em>, <em>az_data</em>,
+                        <em>gx_data</em>, <em>gy_data</em>, and <em>gz_data</em>. Tests confirmed that a full 5-second dataset (typically well over 1000 samples)
+                        transfers successfully without array overruns, verifying reliable data capture and communication.
+                        </p>
+                        <img class="img-fluid rounded mb-2"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab2/4-2-run.png"
+                        alt="Lab2 4-2"/>
+                        <div class="empty-line"></div>
+
+                    </div>
+                    </div>
+        
+                    <!-- RC Car Section-->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">5. RC Car Demo</h3>
+                        <p class="text-justify">
+                        I tested the RC car for a few minutes, it is not easy to record the car while using the controller, so the following video only shows the basic movements.
+                        The RC car demonstrates impressive speed and agility. It is capable of rotating horizontally through a full 360° and can even flip over while continuing to move. However, it is important to note that the car decelerates very slowly when controlled by the remote, which suggests that setting a maximum speed or incorporating additional sensors may be necessary in the future to prevent potential crashes. Furthermore, while holding down the turn button enables rapid 360° rotation, a quick tap on the turn button only results in a turn of approximately 40°, indicating a need for further tuning of the steering control.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item"
+                                src="https://www.youtube.com/embed/M-YhdbUvlfY" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+        
+                    <!-- Conclusion or Final Thoughts (Optional) -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">Conclusion</h3>
+                        <p class="text-justify">
+                        Lab 2 highlighted the process of configuring and using the ICM-20948 IMU with the Artemis board,
+                        exploring both accelerometer and gyroscope data in detail. The successful implementation of a complementary filter
+                        demonstrates how blending sensor readings can overcome their individual weaknesses—noise in the accelerometer
+                        and drift in the gyroscope. Additionally, efficient data capture strategies and the ability to send
+                        large datasets over Bluetooth ensure a robust setup for further robotic applications.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">References</h3>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <p class="lead">[1] ICM-20948 Datasheet. SparkFun Electronics. Retrieved from <a href="https://cdn.sparkfun.com/assets/7/f/e/c/d/DS-000189-ICM-20948-v1.3.pdf">sparkfun.com</a></p>
+                                </li>
+                                <li>
+                                    <p class="lead">[2] Fast Fourier Transform (FFT) Tutorial. Retrieved from <a href="https://www.alphabold.com/fourier-transform-in-python-vibration-analysis/">FFT in Python</a></p>
+                                </li>
+                                <!-- Additional references can be added here -->
+                            </ul>
+                            <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div> <!-- /.container -->
+                </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 2 end -->
+  
+  
         <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal2Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">

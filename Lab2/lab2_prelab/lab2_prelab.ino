@@ -1,40 +1,44 @@
-/****************************************************************
- * Example1_Basics.ino
- * ICM 20948 Arduino Library Demo
- * Use the default configuration to stream 9-axis IMU data
- * Owen Lyke @ SparkFun Electronics
- * Original Creation Date: April 17 2019
+/**************************************************************** 
+ * Complementary Filter Example for Gyroscope and Accelerometer
+ * Combines gyro integration with accelerometer-based angles using
+ * a complementary filter. The filter uses a lowpass idea to weight
+ * the accelerometer measurement.
  *
- * Please see License.md for the license information.
+ * Based on SparkFun ICM-20948 Example1_Basics.ino.
  *
- * Distributed as-is; no warranty is given.
+ * Created by [Your Name], 2025
  ***************************************************************/
-#include "ICM_20948.h"  // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
-#include <math.h>   // for atan2, M_PI, etc.
+#include "ICM_20948.h"  // SparkFun ICM-20948 Library
 
-//#define USE_SPI       // Uncomment this to use SPI
+//#define USE_SPI       // Uncomment to use SPI if desired
 
 #define SERIAL_PORT Serial
 
-#define SPI_PORT SPI  // Your desired SPI port.       Used only when "USE_SPI" is defined
-#define CS_PIN 2      // Which pin you connect CS to. Used only when "USE_SPI" is defined
-
-#define WIRE_PORT Wire  // Your desired Wire port.      Used when "USE_SPI" is not defined
-// The value of the last bit of the I2C address.
-// On the SparkFun 9DoF IMU breakout the default is 1, and when the ADR jumper is closed the value becomes 0
-#define AD0_VAL 1
-
 #ifdef USE_SPI
-ICM_20948_SPI myICM;  // If using SPI create an ICM_20948_SPI object
+  #define SPI_PORT SPI  // SPI port (if using SPI)
+  #define CS_PIN 2      // Chip select pin for SPI
 #else
-ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
+  #define WIRE_PORT Wire  // I2C port
+  // On the SparkFun 9DoF IMU breakout, AD0_VAL is 1 by default
+  #define AD0_VAL 1
 #endif
 
-void setup() {
+#ifdef USE_SPI
+ICM_20948_SPI myICM;  // Using SPI
+#else
+ICM_20948_I2C myICM;  // Using I2C
+#endif
 
+// Global variables for gyro integration and complementary filter
+static float gyro_pitch = 0.0f, gyro_roll = 0.0f, gyro_yaw = 0.0f;
+static float comp_pitch = 0.0f, comp_roll = 0.0f;
+static unsigned long last_time = 0;
+
+void setup() {
   SERIAL_PORT.begin(115200);
   while (!SERIAL_PORT) {
-  };
+    ;  // Wait for Serial Monitor to open
+  }
 
 #ifdef USE_SPI
   SPI_PORT.begin();
@@ -43,18 +47,15 @@ void setup() {
   WIRE_PORT.setClock(400000);
 #endif
 
-  //myICM.enableDebugging(); // Uncomment this line to enable helpful debug messages on Serial
-
+  // Initialize the IMU
   bool initialized = false;
   while (!initialized) {
-
 #ifdef USE_SPI
     myICM.begin(CS_PIN, SPI_PORT);
 #else
     myICM.begin(WIRE_PORT, AD0_VAL);
 #endif
-
-    SERIAL_PORT.print(F("Initialization of the sensor returned: "));
+    SERIAL_PORT.print(F("Initialization returned: "));
     SERIAL_PORT.println(myICM.statusString());
     if (myICM.status != ICM_20948_Stat_Ok) {
       SERIAL_PORT.println("Trying again...");
@@ -62,143 +63,85 @@ void setup() {
     } else {
       initialized = true;
     }
-    // Add your LED blink sequence here
-    pinMode(LED_BUILTIN, OUTPUT);
-    for (int i = 0; i < 3; i++) {
-      digitalWrite(LED_BUILTIN, HIGH);
-      delay(200);
-      digitalWrite(LED_BUILTIN, LOW);
-      delay(200);
-    }
   }
+
+  // Blink LED to indicate successful initialization
+  pinMode(LED_BUILTIN, OUTPUT);
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(200);
+  }
+
+  // Initialize the timer for integration
+  last_time = micros();
 }
 
 void loop() {
-
   if (myICM.dataReady()) {
-    myICM.getAGMT();          // The values are only updated when you call 'getAGMT'
-                              //    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
-    printScaledAGMT(&myICM);  // This function takes into account the scale settings from when the measurement was made to calculate the values with units
-    delay(30);
+    // Update sensor readings (accelerometer, gyroscope, magnetometer, temperature)
+    myICM.getAGMT();
+    // --- Accelerometer-Based Angle Calculation ---
+    // Read accelerometer values (in mg) and convert to g.
+    float ax = myICM.accX() / 1000.0f;
+    float ay = myICM.accY() / 1000.0f;
+    float az = myICM.accZ() / 1000.0f;
+    // Compute accelerometer-based pitch and roll.
+    // Based on professor's convention:
+    float pitchAcc = atan2(ax, az) * 180.0f / M_PI;
+    float rollAcc  = atan2(ay, az) * 180.0f / M_PI;
+
+    // --- Lowpass Filter on Accelerometer Angles ---
+    // Use static variables so that the filter "remembers" the previous state.
+    static float filteredPitch = pitchAcc;  // Initialize on first call.
+    static float filteredRoll = rollAcc;
+
+    // Get current time and compute elapsed time (dt) in seconds.
+    unsigned long current_time = micros();
+    float dt = (current_time - last_time) / 1000000.0f;
+    last_time = current_time;
+
+    // Define the cutoff frequency in Hz.
+    const float cutoff = 2.0f;  // Adjust as needed.
+    // Calculate RC and the filter coefficient alpha.
+    float RC = 1.0f / (2.0f * M_PI * cutoff);
+    float alpha = dt / (RC + dt);
+
+    // Update the filtered values.
+    filteredPitch = filteredPitch + alpha * (pitchAcc - filteredPitch);
+    filteredRoll = filteredRoll + alpha * (rollAcc - filteredRoll);
+
+    // Integrate gyroscope rates to update angles.
+    gyro_pitch += myICM.gyrX() * dt;
+    gyro_roll  += myICM.gyrY() * dt;
+    gyro_yaw   += myICM.gyrZ() * dt;
+
+    // --- Complementary Filter ---
+    // Here, alpha_g is the weight given to the accelerometer measurement.
+    // A typical value might be around 0.02 (i.e. 98% weight to gyro integration).
+    const float alpha_g = 0.02f;
+    comp_pitch = gyro_pitch * (1.0f - alpha_g) + filteredPitch * alpha_g;
+    comp_roll  = gyro_roll  * (1.0f - alpha_g) + filteredRoll * alpha_g;
+
+    // --- Output Results ---
+    SERIAL_PORT.print("Accel Pitch: ");
+    SERIAL_PORT.print(filteredPitch, 2);
+    SERIAL_PORT.print(" deg, Accel Roll: ");
+    SERIAL_PORT.println(filteredRoll, 2);
+    // SERIAL_PORT.print(" deg; Gyro Pitch: ");
+    // SERIAL_PORT.print(gyro_pitch, 2);
+    // SERIAL_PORT.print(" deg, Gyro Roll: ");
+    // SERIAL_PORT.print(gyro_roll, 2);
+    // SERIAL_PORT.print(" deg; Comp Pitch: ");
+    // SERIAL_PORT.print(comp_pitch, 2);
+    // SERIAL_PORT.print(" deg, Comp Roll: ");
+    // SERIAL_PORT.print(comp_roll, 2);
+    // SERIAL_PORT.println(" deg");
+
+    delay(100);
   } else {
     SERIAL_PORT.println("Waiting for data");
     delay(500);
   }
-}
-
-// Below here are some helper functions to print the data nicely!
-
-void printPaddedInt16b(int16_t val) {
-  if (val > 0) {
-    SERIAL_PORT.print(" ");
-    if (val < 10000) {
-      SERIAL_PORT.print("0");
-    }
-    if (val < 1000) {
-      SERIAL_PORT.print("0");
-    }
-    if (val < 100) {
-      SERIAL_PORT.print("0");
-    }
-    if (val < 10) {
-      SERIAL_PORT.print("0");
-    }
-  } else {
-    SERIAL_PORT.print("-");
-    if (abs(val) < 10000) {
-      SERIAL_PORT.print("0");
-    }
-    if (abs(val) < 1000) {
-      SERIAL_PORT.print("0");
-    }
-    if (abs(val) < 100) {
-      SERIAL_PORT.print("0");
-    }
-    if (abs(val) < 10) {
-      SERIAL_PORT.print("0");
-    }
-  }
-  SERIAL_PORT.print(abs(val));
-}
-
-void printRawAGMT(ICM_20948_AGMT_t agmt) {
-  SERIAL_PORT.print("RAW. Acc [ ");
-  printPaddedInt16b(agmt.acc.axes.x);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.acc.axes.y);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.acc.axes.z);
-  SERIAL_PORT.print(" ], Gyr [ ");
-  printPaddedInt16b(agmt.gyr.axes.x);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.gyr.axes.y);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.gyr.axes.z);
-  SERIAL_PORT.print(" ], Mag [ ");
-  printPaddedInt16b(agmt.mag.axes.x);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.mag.axes.y);
-  SERIAL_PORT.print(", ");
-  printPaddedInt16b(agmt.mag.axes.z);
-  SERIAL_PORT.print(" ], Tmp [ ");
-  printPaddedInt16b(agmt.tmp.val);
-  SERIAL_PORT.print(" ]");
-  SERIAL_PORT.println();
-}
-
-void printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
-  float aval = abs(val);
-  if (val < 0) {
-    SERIAL_PORT.print("-");
-  } else {
-    SERIAL_PORT.print(" ");
-  }
-  for (uint8_t indi = 0; indi < leading; indi++) {
-    uint32_t tenpow = 0;
-    if (indi < (leading - 1)) {
-      tenpow = 1;
-    }
-    for (uint8_t c = 0; c < (leading - 1 - indi); c++) {
-      tenpow *= 10;
-    }
-    if (aval < tenpow) {
-      SERIAL_PORT.print("0");
-    } else {
-      break;
-    }
-  }
-  if (val < 0) {
-    SERIAL_PORT.print(-val, decimals);
-  } else {
-    SERIAL_PORT.print(val, decimals);
-  }
-}
-
-#ifdef USE_SPI
-void printScaledAGMT(ICM_20948_SPI *sensor) {
-#else
-void printScaledAGMT(ICM_20948_I2C *sensor) {
-#endif
-  SERIAL_PORT.print("Scaled. Acc (mg) [ ");
-  printFormattedFloat(sensor->accX(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->accY(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->accZ(), 5, 2);
-  SERIAL_PORT.print(" ], Gyr (DPS) [ ");
-  printFormattedFloat(sensor->gyrX(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->gyrY(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->gyrZ(), 5, 2);
-  SERIAL_PORT.print(" ], Mag (uT) [ ");
-  printFormattedFloat(sensor->magX(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->magY(), 5, 2);
-  SERIAL_PORT.print(", ");
-  printFormattedFloat(sensor->magZ(), 5, 2);
-  SERIAL_PORT.print(" ], Tmp (C) [ ");
-  printFormattedFloat(sensor->temp(), 5, 2);
-  SERIAL_PORT.print(" ]");
-  SERIAL_PORT.println();
 }
