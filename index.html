@@ -16,7 +16,7 @@
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
-            <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">ECE 5610 Fast Robot Lab Webpage</a>
+            <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">Autonomous Mobile Robot Development Webpage</a>
                 <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
@@ -105,7 +105,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/circus.png" alt="Circus Tent"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab3/image1.jpg" alt="Lab 3: TOFs" style="max-width: 280px; height: auto;"/>
+                            <h5 class="text-center mt-2">Lab 3: Time of Flight Sensors </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -986,34 +987,363 @@
         </div> <!-- /.modal -->
         <!-- Lab 2 end -->
   
-  
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal2Label" aria-hidden="true">
+        <!-- Lab 3 start -->
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Circus Tent</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/circus.png" alt="Circus Tent"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
+            <div class="modal-content">
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline style classes -->
+                    <style>
+                    .text-justify {
+                        text-align: justify;
+                    }
+                    .empty-line {
+                        margin-bottom: 1.5rem;
+                    }
+                    </style>
+        
+                    <!-- Lab 3: Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 3: Time of Flight Sensors</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                        </div>
+                        <!-- Optional Main Image for Lab 3 -->
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 500px; height: auto;"
+                            src="assets/img/portfolio/Lab3/image1.jpg"
+                            alt="Lab 3 Setup"/>
+                    </div>
+                    </div>
+        
+                    <!-- 0. Introduction -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">0. Introduction</h3>
+                        <p class="mb-4 text-justify">
+                        This lab integrates two VL53L1X Time-of-Flight (ToF) sensors with the Artemis Nano for real-time distance sensing.
+                        By adding these sensors, the robot can detect obstacles in front and behind, complementing existing IMU data to
+                        improve navigation and collision avoidance. The sections below detail the prelab setup, sensor configuration,
+                        wiring considerations, and demonstration of data logging over Bluetooth.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 1. Prelab -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Prelab</h3>
+        
+                        <!-- 1.1 Noting the I2C Sensor Address -->
+                        <h4 class="text-center">1.1 Noting the I2C Sensor Address</h4>
+                        <p class="mb-4 text-justify">
+                        According to the <a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf" target="_blank">VL53L1X datasheet</a> Page 4 , each sensor has a default I²C address of 0x52 (in 8-bit format).
+                        However, scanners using 7-bit addressing typically report 0x29. This discrepancy arises because the last bit
+                        indicates read/write status, effectively shifting the displayed address.
+                        </p>
+        
+                        <!-- 1.2 Approach for Using Two ToF Sensors -->
+                        <h4 class="text-center">1.2 Approach for Using Two ToF Sensors</h4>
+                        <p class="mb-4 text-justify">
+                        Since both sensors share the same default address, a strategy is required to avoid conflicts. One sensor’s XSHUT pin
+                        is tied to a GPIO (e.g., GPIO 8) on the Artemis, allowing it to be powered down briefly so the other can be reinitialized
+                        with a new address. Both sensors then coexist on the same I²C bus without interference.
+                        </p>
+        
+                        <!-- 1.3 Sensor Placement and Missing Obstacles -->
+                        <h4 class="text-center">1.3 Sensor Placement and Missing Obstacles</h4>
+                        <p class="mb-4 text-justify">
+                        As for now, my setting will be: one ToF sensor faces forward, while the other faces backward, which enables detection along the robot’s primary movement directions.
+                        Although side obstacles may be missed unless the robot rotates, this configuration covers most straightforward collision threats. And the car can simply rotates to detect the side obstacles.
+                        Angled or off-axis objects can also evade detection, which may require additional turning or additional sensors in future designs.
+                        </p>
+        
+                        <!-- 1.4 Wiring Diagram and Considerations -->
+                        <h4 class="text-center">1.4 Wiring Diagram and Considerations</h4>
+                        <p class="mb-4 text-justify">
+                        Both sensors connect to the Qwiic breakout board for SDA/SCL and power. The Artemis is powered by a 650 mAh battery
+                        via a JST cable. Longer Qwiic cables allow flexible placement of the sensors on opposite ends of the robot chassis,
+                        while shorter cables link the breakout board to the Artemis. Standard wire colors (red for VIN, black for GND,
+                        blue for SDA, yellow for SCL) maintain clarity during soldering and assembly.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 600px; height: auto;"
+                            src="assets/img/portfolio/Lab3/Schematic.png"
+                            alt="Lab3 Schematic"/>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 2. Soldering and Test -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Soldering and Test</h3>
+                        <p class="mb-4 text-justify">
+                        The original RC car battery wires were trimmed one at a time and soldered to a JST cable, ensuring proper polarity.
+                        After insulating with heat-shrink tubing, the battery was directly connected to the Artemis Nano’s JST power socket,
+                        eliminating the need for a dedicated adapter cable. Lab 1 test case <code>GET_TIME_MILLIS</code> was re-run to confirm stable Bluetooth connectivity
+                        and that the board functioned normally without USB power.
+                        </p>
+                        <div class="empty-line"></div>
+                        <div class="empty-line"></div>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/ofYxYT5NnsU" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+        
+                    <!-- 3. I2C Scanning -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. I2C Scanning</h3>
+                        <p class="mb-4 text-justify">
+                        Using the <code>Example1_wire_I2C.ino</code> sketch, the sensor was detected at 0x29, not 0x52. This discrepancy
+                        arises from the 7-bit addressing convention, where the last bit indicates read/write status.  When represented without this last bit, as in the scan above, the remaining address is bit shifted to the right (0b1010010 → 0b0101001), an operation equivalent to halving the decimal value.
+                        </p>
+                        <div class="empty-line"></div>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/image7.png"
+                        alt="Lab3 "/>
+                    </div>
+                    </div>
+        
+                    <!-- 4. Sensor Modes -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">4. Sensor Modes</h3>
+                        <p class="mb-4 text-justify">
+                        Since Medium mode is only available through the polulu library, my testing focused on Short and Long modes, as supported by the SparkFun library on Arduino IDE.
+                        Based on the <a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf" target="_blank">datasheet</a> Page 10 and 11,
+                        short mode completes a reading in about 33 ms and covers roughly 1.3 m at higher accuracy, while Long mode supports up to 3.6 m but doubles the measurement time (~100 ms).
+                        Considering typical indoor use, Short mode was chosen to maximize update frequency.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 5. Sensor Performance -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">5. Sensor Performance</h3>
+                        <p class="mb-4 text-justify">
+                        Since the measure tape is unavailable, I used a 30 cm ruler for basic tests. During the 30–25 cm range, both short and long modes work perfectly with less than 0.5 cm error and high repeatability. However, as the distance approaches 1 cm, the long mode’s error increases to around 1 cm, while the short mode exhibits even larger inaccuracies when measuring distances smaller than 1 cm.
+                        Timing measurements confirmed ~50 ms per reading in Short mode, ~100 ms in Long mode. These values confirmed that short mode is sufficient for indoor obstacle
+                        avoidance where sub-second response times are required.
+                        </p>
+                        <div class="empty-line"></div>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/image6.png"
+                        alt="Lab3 "/>
+                    </div>
+                    </div>
+        
+                    <!-- 6. Two ToF Sensors-->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">6. Two ToF Sensors </h3>
+                        <p class="mb-4 text-justify">
+                        I configured two sensors using the SparkFun_VL53L1X library and Wire for I2C communication, with sensor1 assigned a custom I2C address and sensor2 managed via dedicated shutdown and interrupt pins.
+                        After confirming that both sensors are properly initialized and online, I configured them to operate in short distance mode and began continuous ranging. 
+                        The system then monitors each sensor using <code>checkForDataReady()</code> to ensure synchronized, real-time distance measurements without blocking delays.
+                        The IMU was similarly queried for data when ready, shown in Lab2's content, ensuring all sensors are polled without halting the main loop. This approach
+                        enables streamlined, parallel sensor acquisition for improved situational awareness.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/2tof.png"
+                        alt="Lab3 "/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/vBNyaYJGGx0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 7. Non-Blocking Code & Speed -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">7. Non-Blocking Code & Speed</h3>
+                        <p class="mb-4 text-justify">
+                        By avoiding <code>while()</code> loops awaiting new measurements, the main loop operates at ~700 iterations per second.
+                        Sensor updates themselves come at ~10 Hz (100 ms intervals in continuous mode). As a result, the limiting factor is the
+                        sensors’ internal refresh speed rather than the board’s CPU frequency or I²C bus overhead.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab3/image8.png"
+                        alt="Lab3 "/>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 8. Time-Stamped Data Logging & Bluetooth -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">8. Time-Stamped Data Logging &amp; Bluetooth</h3>
+                        <p class="mb-4 text-justify">
+                        Two new command types (<code>STORE_DUAL_TOF_IMU_DATA</code> and <code>SEND_DUAL_TOF_IMU_DATA</code>) allow recording five seconds 
+                        of ToF and IMU data for later retrieval. This data is then sent in bursts to a Python script over Bluetooth, which parses and plots 
+                        distance vs. time, alongside IMU accelerations and gyroscope rates. This non-blocking, event-driven approach ensures real-time 
+                        logging without missing measurements. To test the Time vs Distance, I moved the sensors towards the wall, as the first image shows; and to test the Angle vs Time, I rotated the IMU sensors around the X-axis, as the second image shows. 
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/image5.png"
+                        alt="Lab3 "/>
+                        <h5 class="text-center">Distance vs. Time Plot</h4>
+
+                        <div class="empty-line"></div>
+                        <div class="empty-line"></div>
+
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/image2.png"
+                        alt="Lab3 "/>
+                        <h5 class="text-center">Angle vs. Time Plot</h4>
+
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 9. Infrared Transmission–Based Sensors -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">9. Infrared Transmission–Based Sensors</h3>
+                        <p class="mb-4 text-justify">
+                            Infrared distance sensing can be achieved through several approaches, including simple reflectance-based sensors, structured-light systems, and more advanced time-of-flight technology. Traditional reflectance sensors (e.g., Sharp GP2Y series) emit an IR beam and measure the angle or intensity of the reflected light to gauge distance, which can be relatively low-cost but prone to inaccuracies with certain colors or textures. 
+                            Structured-light sensors, such as early Microsoft Kinect devices, project a defined IR pattern onto a scene and use distortion in the pattern to map depth, thereby providing a rich 3D view but at higher complexity and power demands. Time-of-flight modules like the VL53L1X measure the round-trip time of an IR pulse, resulting in generally robust distance estimates less affected by color or ambient lighting changes. 
+                            Compared to other IR methods, ToF sensors often offer faster sampling rates and consistent performance across a wider range of surface materials.
+                             However, they can be more expensive and sensitive to setup constraints (like cover glass and stray reflections) than simple reflectance sensors.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 10. Color and Texture Sensitivity -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">10. Color and Texture Sensitivity</h3>
+                        <p class="mb-4 text-justify">
+                            To investigate color sensitivity, measurements were taken at fixed distances against both a black box and a white box in Short mode, as summarized in the table below. Dark surfaces tend to absorb or diffuse more IR light, causing marginally lower readings or greater variation in measured distance. 
+                            The VL53L1X’s built-in calibration helps compensate for differences in reflectivity, so discrepancies remained within a few millimeters to about one centimeter in the tests. 
+                            At shorter distances (under 10 cm), the sensor exhibited slightly more variability on dark surfaces, likely due to reduced returned signal strength. 
+                        </p>
+                        <p class="mb-4 text-justify">
+                            To test texture sensitivity, measurements were taken against a white box and a white glass bottle. The box’s smooth, matte surface provided consistent readings, while the bottle’s textured, reflective surface caused more variation in distance measurements. 
+                            But the sensor’s averaging and filtering capabilities helped mitigate these effects, resulting in relatively stable readings across both surfaces. 
+                        </p>
+
+                        <p class="mb-4 text-justify">
+                            In summary, the VL53L1X’s robust calibration and filtering mechanisms ensure reliable distance measurements across a range of colors and textures, with minor variations in readings due to surface properties. 
+                        </p>
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Collected Data vs Expected Data (cm)</th>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>5</th>
+                                <th>10</th>
+                                <th>15</th>
+                                <th>20</th>
+                                <th>25</th>
+                                <th>30</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Black Box</td>
+                                <td>1.8</td>
+                                <td>3.8</td>
+                                <td>5.3</td>
+                                <td>9.3</td>
+                                <td>14.1</td>
+                                <td>24.5</td>
+                                <td>27.5</td>
+                                <td>29.6</td>
+                              </tr>
+                              <tr>
+                                <td>White Box</td>
+                                <td>1.2</td>
+                                <td>2.5</td>
+                                <td>4.6</td>
+                                <td>10.2</td>
+                                <td>15.1</td>
+                                <td>20.4</td>
+                                <td>25.7</td>
+                                <td>30.7</td>
+                              </tr>
+                              <tr>
+                                <td>White Glass Bottle</td>
+                                <td>0.9</td>
+                                <td>1.8</td>
+                                <td>3.9</td>
+                                <td>9.8</td>
+                                <td>13.8</td>
+                                <td>19.1</td>
+                                <td>24.2</td>
+                                <td>29.3</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- 11. Conclusion -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">11. Conclusion</h3>
+                        <p class="mb-4 text-justify">
+                        In Lab 3, the successful integration of dual ToF sensors expands the robot’s ability to detect and avoid obstacles, 
+                        while the existing IMU continues providing orientation data. By employing non-blocking code and time-stamped logging, 
+                        the robot can capture high-fidelity data without sacrificing responsiveness. These enhancements lay the foundation for 
+                        more complex navigation tasks in upcoming labs.
+                        </p>
+                        <div class="empty-line"></div>
+                    </div>
+                    </div>
+        
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div> <!-- /.container -->
+                </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 3 end -->
+  
+  
         <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal3Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
