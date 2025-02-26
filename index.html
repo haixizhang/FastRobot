@@ -1190,7 +1190,8 @@
                     <div class="col-lg-10">
                         <h3 class="text-center text-primary mb-3">7. Non-Blocking Code & Speed</h3>
                         <p class="mb-4 text-justify">
-                        By avoiding <code>while()</code> loops awaiting new measurements, the main loop operates at ~700 iterations per second.
+                        The code’s speed improvements are achieved by employing a non-blocking design that avoids traditional while() loops waiting for sensor data. 
+                        Instead of halting execution, the code uses the <code>checkForDataReady()</code> function and  Continuous Ranging Mode (<code>distanceSensor1.startRanging()</code>) to periodically verify whether a new measurement is available, allowing the main loop to iterate rapidly—around 700 times per second. 
                         Sensor updates themselves come at ~10 Hz (100 ms intervals in continuous mode). As a result, the limiting factor is the
                         sensors’ internal refresh speed rather than the board’s CPU frequency or I²C bus overhead.
                         </p>
@@ -1244,8 +1245,10 @@
                     <div class="col-lg-10">
                         <h3 class="text-center text-primary mb-3">9. Infrared Transmission–Based Sensors</h3>
                         <p class="mb-4 text-justify">
-                            Infrared distance sensing can be achieved through several approaches, including simple reflectance-based sensors, structured-light systems, and more advanced time-of-flight technology. Traditional reflectance sensors (e.g., Sharp GP2Y series) emit an IR beam and measure the angle or intensity of the reflected light to gauge distance, which can be relatively low-cost but prone to inaccuracies with certain colors or textures. 
-                            Structured-light sensors, such as early Microsoft Kinect devices, project a defined IR pattern onto a scene and use distortion in the pattern to map depth, thereby providing a rich 3D view but at higher complexity and power demands. Time-of-flight modules like the VL53L1X measure the round-trip time of an IR pulse, resulting in generally robust distance estimates less affected by color or ambient lighting changes. 
+                            Infrared distance sensing can be achieved through several approaches, including <strong>simple reflectance-based sensors</strong>, <strong>structured-light systems</strong>, <strong>Laser Range Finder (LIDAR)</strong>and <strong>Time-of-Flight (ToF) Sensors</strong>. <strong>Traditional reflectance sensors</strong> (e.g., Sharp GP2Y series) emit an IR beam and measure the angle or intensity of the reflected light to gauge distance, which can be relatively low-cost but prone to inaccuracies with certain colors or textures. 
+                            <strong>Structured-light sensors</strong>, such as early Microsoft Kinect devices, project a defined IR pattern onto a scene and use distortion in the pattern to map depth, thereby providing a rich 3D view but at higher complexity and power demands. 
+                            <strong>LIDAR systems</strong>, like the Velodyne VLP-16, emit a laser beam and measure the time taken for the beam to return, offering high precision and resolution but at a premium price and power consumption. 
+                            <strong>Time-of-flight modules</strong> like the VL53L1X measure the round-trip time of an IR pulse, resulting in generally robust distance estimates less affected by color or ambient lighting changes. 
                             Compared to other IR methods, ToF sensors often offer faster sampling rates and consistent performance across a wider range of surface materials.
                              However, they can be more expensive and sensitive to setup constraints (like cover glass and stray reflections) than simple reflectance sensors.
                         </p>
