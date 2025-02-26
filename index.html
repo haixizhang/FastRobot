@@ -1070,6 +1070,10 @@
                         Although side obstacles may be missed unless the robot rotates, this configuration covers most straightforward collision threats. And the car can simply rotates to detect the side obstacles.
                         Angled or off-axis objects can also evade detection, which may require additional turning or additional sensors in future designs.
                         </p>
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 600px; height: auto;"
+                            src="assets/img/portfolio/Lab3/tof_placement.png"
+                            alt="Lab3 Schematic"/>                        
         
                         <!-- 1.4 Wiring Diagram and Considerations -->
                         <h4 class="text-center">1.4 Wiring Diagram and Considerations</h4>
@@ -1132,7 +1136,7 @@
                         <p class="mb-4 text-justify">
                         Since Medium mode is only available through the polulu library, my testing focused on Short and Long modes, as supported by the SparkFun library on Arduino IDE.
                         Based on the <a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf" target="_blank">datasheet</a> Page 10 and 11,
-                        short mode completes a reading in about 33 ms and covers roughly 1.3 m at higher accuracy, while Long mode supports up to 3.6 m but doubles the measurement time (~100 ms).
+                        short mode completes a reading in about 33 ms and covers roughly 1.3 m at higher accuracy, while Long mode supports up to 3.6 m but doubles the measurement time (~100 ms) and can be influenced by ambient light.
                         Considering typical indoor use, Short mode was chosen to maximize update frequency.
                         </p>
                         <div class="empty-line"></div>
@@ -1146,8 +1150,7 @@
                         <p class="mb-4 text-justify">
                         Since the measure tape is unavailable, I used a 30 cm ruler for basic tests. During the 30–25 cm range, both short and long modes work perfectly with less than 0.5 cm error and high repeatability. However, as the distance approaches 1 cm, the long mode’s error increases to around 1 cm, while the short mode exhibits even larger inaccuracies when measuring distances smaller than 1 cm.
                         Timing measurements confirmed ~50 ms per reading in Short mode, ~100 ms in Long mode. These values confirmed that short mode is sufficient for indoor obstacle
-                        avoidance where sub-second response times are required.
-                        </p>
+                        avoidance where sub-second response times are required. Also, for the short mode, I tried measure three times and the standard deviation is around 0.7 cm.               </p>
                         <div class="empty-line"></div>
                         <img class="img-fluid rounded mb-4"
                         style="max-width: 600px; height: auto;"
@@ -1204,10 +1207,18 @@
                     <div class="col-lg-10">
                         <h3 class="text-center text-primary mb-3">8. Time-Stamped Data Logging &amp; Bluetooth</h3>
                         <p class="mb-4 text-justify">
-                        Two new command types (<code>STORE_DUAL_TOF_IMU_DATA</code> and <code>SEND_DUAL_TOF_IMU_DATA</code>) allow recording five seconds 
-                        of ToF and IMU data for later retrieval. This data is then sent in bursts to a Python script over Bluetooth, which parses and plots 
-                        distance vs. time, alongside IMU accelerations and gyroscope rates. This non-blocking, event-driven approach ensures real-time 
-                        logging without missing measurements. To test the Time vs Distance, I moved the sensors towards the wall, as the first image shows; and to test the Angle vs Time, I rotated the IMU sensors around the X-axis, as the second image shows. 
+                        Two new command types (<code>STORE_DUAL_TOF_IMU_DATA</code> and <code>SEND_DUAL_TOF_IMU_DATA</code>) allow recording five seconds (or longer)
+                        of ToF and IMU data for later retrieval. The IMU data was converted to the complementary filtered roll and pitch, as the lab2's method. During 5000 ms, Jupyter side received 956 notifications in total, so the sample rate is 191 Hz.
+                        I have tested both sending directly the ax, ay, az, gx, gy, gz and the roll and pitch; both works. The notification has the following format:
+                        <div class="empty-line"></div>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 600px; height: auto;"
+                        src="assets/img/portfolio/Lab3/Screenshot 2025-02-25 201324.png"
+                        alt="Lab3 "/>
+                        </p>
+                        <p class="mb-4 text-justify">
+                        This data is then sent in bursts to a Python script over Bluetooth, which parses and plots distance vs. time, alongside IMU accelerations and gyroscope rates. This non-blocking, event-driven approach ensures real-time 
+                        logging without missing measurements. To test the Time vs Distance, I moved the sensors towards the wall, as the first image shows; and to test the Angle vs Time, I rotated the IMU sensors around the Y-axis first, then rotated around X-axis, as the second image shows. 
                         </p>
                         <img class="img-fluid rounded mb-4"
                         style="max-width: 600px; height: auto;"
