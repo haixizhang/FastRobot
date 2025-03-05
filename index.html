@@ -113,7 +113,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="Controller"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab4/header.jpg" alt="Lab 3: TOFs" style="max-width: 280px; height: auto;"/>
+                            <h5 class="text-center mt-2">Lab 4: Motors and Open Loop Control </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -1358,33 +1359,350 @@
         <!-- Lab 3 end -->
   
   
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal3Label" aria-hidden="true">
+        <!-- Lab 4 start -->
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Controller</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/game.png" alt="Controller"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
+            <div class="modal-content">
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline style classes -->
+                    <style>
+                    .text-justify {
+                        text-align: justify;
+                    }
+                    .empty-line {
+                        margin-bottom: 1.5rem;
+                    }
+                    </style>
+        
+                    <!-- Lab 4: Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 4: Motors and Open Loop Control</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
                         </div>
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 500px; height: auto;"
+                            src="assets/img/portfolio/Lab4/header.jpg"
+                            alt="Lab 4 Setup"/>
                     </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                          <h3 class="text-center text-primary mb-3">Introduction</h3>
+                          <p class="mb-4 text-justify">
+                            In this lab, I explore motor control using the SparkFun RedBoard Artemis Nano and dual motor drivers.
+                            I focus on transitioning from manual to open loop control, which involves programming the robot to execute pre-defined moves. 
+                            The tasks include connecting motor drivers, testing PWM signals, calibrating motor speeds, and implementing various movements such as straight driving, pivot turns, and reversing.
+                            This approach helps me understand how to overcome issues like static friction and motor discrepancies while ensuring reliable operation.
+                          </p>
+                        </div>
+                      </div>
+                    <!-- Prelab Section -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Prelab</h3>
+                        <!-- Parts Required -->
+                        <h4>1.1 Parts Required</h4>
+                        <p class="mb-4">
+                            <ul>
+                            <li>1 x <a href="https://www.sparkfun.com/products/15443" target="_blank">SparkFun RedBoard Artemis Nano</a></li>
+                            <li>1 x <a href="https://www.amazon.com/SUMPK-Charging-Braided-Compatible-Samsung/dp/B08R68T84N" target="_blank">USB cable</a></li>
+                            <li>1 x <a href="https://www.mouser.com/ProductDetail/SparkFun/SEN-15335?qs=uwxL4vQweFMcls1MYZT00A%3D%3D" target="_blank">9DOF IMU sensor</a></li>
+                            <li>2 x <a href="https://www.pololu.com/product/3415" target="_blank">4m ToF sensor</a></li>
+                            <li>1 x <a href="https://www.sparkfun.com/products/18012" target="_blank">QWIIC Breakout board</a></li>
+                            <li>2 x <a href="https://www.sparkfun.com/products/14426" target="_blank">Qwiic connector</a></li>
+                            <li>1 x <a href="https://www.amazon.com/dp/B07V56N33J?smid=A2ZDGCOOU4F0SF&ref_=chk_typ_imgToDp&th=1" target="_blank">JST2 connector + cable</a></li>
+                            <li>1 x <a href="https://force1rc.com/products/cyclone-remote-control-car-for-kids-adults" target="_blank">Force1 RC car</a></li>
+                            <li>1 x <a href="https://www.amazon.com/URGENEX-Battery-Rechargeable-Quadcopter-Charger/dp/B08T9FB56F" target="_blank">Li-Ion 3.7V 850mAh battery</a></li>
+                            <li>2 x <a href="https://www.digikey.com/en/products/detail/pololu-corporation/2130/10450426" target="_blank">Dual motor drivers</a></li>
+                            <li>1 x Wire strippers/ Mini cutters</li>
+                            <li>1 x Soldering iron</li>
+                            <li>1 x External power supply</li>
+                            <li>1 x Oscilloscope</li>
+                            </ul>
+                        </p>
+
+                        <h4>1.2 Motor Driver Placement and Pin Selection</h4>
+                        <p class="mb-4 text-justify">
+                        
+                        I started by reviewing the <a href="https://cdn.sparkfun.com/assets/5/5/1/6/3/RedBoard-Artemis-Nano.pdf" target="_blank">Artemis board schematic</a> to identify pins that support PWM, which are labeled with a tilde (~). 
+                        In my previous lab, I had connected the XSHUT pin of one ToF sensor to pin 8, so I wanted to keep that setup intact. 
+                        For this lab, I chose pins 6 and 7 for the first motor driver, and pins 13 and 14 for the second motor driver, because each pair provides the PWM signals I need to control motor speed. 
+                        I also made sure that these pins were in convenient physical locations on the board to reduce wiring complexity. 
+                        The diagram below shows how each motor driver input is wired in parallel and connected to the selected PWM pins on the Artemis.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/Schematic.jpg"
+                        alt="Lab 4 Setup"/>
+        
+                        <h4>1.3 Separate Battery Power</h4>
+                        <p class="mb-4 text-justify">
+                        I decided to power the Artemis from one supply and the motors from a separate 3.7V, 850mAh battery. 
+                        The main reason is that motors can draw sudden bursts of current, causing voltage dips and electrical noise that might reset or interfere with the microcontroller. 
+                        By using separate power sources, I can better isolate the sensitive electronics on the Artemis board from these fluctuations. 
+                        This approach also simplifies debugging, because I can monitor the motor battery voltage and current without worrying about the Artemis supply. 
+                        In addition, having separate batteries makes it easier for me to troubleshoot if either side of the circuit experiences issues.
+                        </p>
+        
+                        <h4>1.4 Wiring and EMI Considerations</h4>
+                        <p class="mb-4 text-justify">
+                        I paid close attention to the length and routing of my wires to minimize electromagnetic interference (EMI). 
+                        Longer wires can pick up or radiate more noise, especially at higher currents, so I kept the motor leads as short as possible. 
+                        I used flexible, stranded wires instead of solid-core ones because the car can undergo high accelerations that might stress or break rigid wires. 
+                        Color coding each wire (for instance, red for positive voltage and black for ground) helps me avoid confusion when I need to make quick changes. 
+                        These precautions should reduce noise-related problems and make it easier to troubleshoot any connection issues that arise.
+                        </p>
+        
+                        <h4>1.5 Preparing for the Lab Tasks</h4>
+                        <p class="mb-4 text-justify">
+                        Before arriving at the lab, I skimmed through all the instructions to understand the scope of the work. 
+                        This included reviewing the details on parallel-coupling the dual motor driver channels and how to use the oscilloscope for measuring PWM signals. 
+                        Having an overview of the entire procedure helps me plan the order of tasks, especially when juggling hardware setups and code testing. 
+                        It also allows me to think about potential pitfalls, like ensuring all grounds are connected or limiting the motor supply current during initial testing. 
+                        Armed with this knowledge, I feel ready to proceed with assembling the hardware and writing the code for open loop motor control.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Lab Sections -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h4 class="text-primary">2. Motor Driver Connection and Test</h4>
+                        <p class="mb-4 text-justify">
+                        I removed the original factory PCB and LEDs from the car to create enough space for my motor drivers. 
+                        Then I carefully soldered both the input and output pins on each driver board and connected them to the corresponding pins on the Artemis, following my schematic. 
+                        For the first motor driver, I wired the outputs directly to the motor, which made it more difficult to measure the signals with the oscilloscope. 
+                        To compensate, I connected short wires to the output pins on the second motor driver so I could easily observe the PWM signals. 
+                        For <code>analogWrite()</code>, it accepts a value between 0 and 255, which corresponds to a duty cycle of 0% to 100%.
+                        With the motor driver powered at 3.7V from the power generator, I ran my code (shown above) and verified that the oscilloscope trace gradually increased as expected for a PWM signal.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/1_code.png"
+                        alt="Lab 4 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/wQx6EF-UjyA" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+
+        
+                        <h4 class="text-primary">3. One Side Wheels Spinning</h4>
+                        <p class="mb-4 text-justify">
+                        I connected the motor driver outputs to the Artemis board, while still supplying 3.7V from the voltage generator. 
+                        Based on the motor control table discussed in class, I used pin 6 to provide PWM signals and pin 7 to remain LOW or HIGH depending on the desired rotation direction. 
+                        First, I set pin 6 to a PWM value (e.g., 200) and pin 7 to 0 for clockwise rotation. 
+                        Then, I reversed the signals by setting pin 6 to 0 and pin 7 to PWM for counterclockwise motion. 
+                        Below is the code snippet I used to verify that the right-side motor could spin in both directions:
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/3_code.png"
+                        alt="Lab 4"/>
+
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/T2fbpTVdQPc" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+
+                        <h4 class="text-primary">4. Entire Car Connection and Running Test</h4>
+                        <p class="mb-4 text-justify">
+                        I started by powering the Artemis board with a 650mAh battery (connected via JST) and used a separate 850mAh battery to supply the two motor drivers. 
+                        After soldering all connections, I secured the IMU on the battery compartment surface with blue tape to maintain a level plane and align the X-axis with the car’s center. 
+                        I then linked both batteries and uploaded the code shown above, which drives both motors forward at a moderate PWM value of 50 for two seconds. 
+                        The following image shows the car setup before the test, with the Artemis board, motor drivers, and batteries all connected.
+                        Also, for the demonstration purpose, the elements are "pulled out" to show the connections clearly, in reality, I am able to put them all inside the car.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/Overall.png"
+                        alt="Lab 4 Setup"/>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/4_back.jpg"
+                        alt="Lab 4 Setup"/>
+                        <p class="mb-4 text-justify">
+                        When testing, I noticed that a PWM value above 100 caused the wheels to spin too quickly and risk collisions, so I lowered it to 50. 
+                        However, the car still veered slightly because one side’s motor spun faster. 
+                        I believe this discrepancy stems from inherent variations in the motors and their mechanical linkages. 
+                        In addition, any small offset in how the wheels are mounted or in the weight distribution of the chassis can affect the overall rotation speed. 
+                        The battery voltage and wiring connections might also introduce minute variations in current delivery to each motor.
+                        </p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/7QaaZT0KVqs" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+
+                        <h4 class="text-primary">5. Lower Limit in PWM</h4>
+                        <p class="mb-4 text-justify">
+                        Notice that this test is influenced by the battery voltage and the ground material, so the results may vary. I used the new battery and ran it on the Lab table.
+                        I wrote a sketch that uses a for loop to gradually increase the PWM value until I observed the car starting to move. 
+                        For forward motion, I found that the slower side motor began moving at around 40 PWM, while the faster side motor started at about 30 PWM. 
+                        This difference indicates that even when the same PWM signal is applied, inherent motor variations or slight differences in mechanical load can affect the starting threshold. 
+                        I also noticed that the car required a higher PWM value to overcome static friction when starting from rest compared to keeping it running.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/lowerlimit_1.png"
+                        alt="Lab 4 Setup"/>
+                        <p class="mb-4 text-justify">
+                        For on-axis turns, I modified the code so that one motor runs forward while the other runs in reverse. 
+                        During these tests, the slower motor required around 130 PWM and the faster motor only about 100 PWM to achieve a balanced turn. 
+                        This discrepancy further highlights the need to account for differences in motor performance when designing control strategies. 
+                        I also observed that as the 850mAh battery voltage drops, the required PWM threshold increases, indicating that battery condition plays a significant role in motor performance.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/lowerlimit_2.png"
+                        alt="Lab 4 Setup"/>
+                        <p class="mb-4 text-justify">
+                        Below is a short demo video:
+                        </p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/RyXHPQmkf40" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+                        <h4 class="text-primary">6. Calibration for Straight Ahead</h4>
+                        <p class="mb-4 text-justify">
+                        Due to the factors mentioned in previous sections, the car does not drive perfectly straight when both motors receive the same PWM value. 
+                        The blue-taped side motor proved to be faster, requiring a lower minimum PWM of about 30, compared to 40 for the other side. 
+                        To compensate, I introduced a calibration factor for the faster motor of 0.75 (30/40). 
+                        When assigning a PWM of 60 to the slower motor, I found that using a factor of 34/40 (~0.85) for the faster side achieved straight-line movement for at least 9 tiles (9 ft or 2.7 m). 
+                        Here is the code that demonstrates this calibration:
+                        </p>
+                        
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/straight.png"
+                        alt="Lab 4 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/JiBS_mYvv5k" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+
+                        <h4 class="text-primary">7. Open Loop Control</h4>
+                        <p class="mb-4 text-justify">
+                        I implemented open loop control by programming a sequence that includes driving straight, performing pivot turns, and reversing. 
+                        In my code, I defined the motor control pins for the left (blue) and right (other) motors and set specific PWM values for both forward motion and turning maneuvers. 
+                        The program starts with the robot stopped, then drives forward from 3 to 5 seconds, executes a left pivot turn between 5 and 7 seconds, follows with a right pivot turn from 7 to 9 seconds, and finally reverses for 2 seconds before stopping. 
+                        Although the robot hit a wall during the demonstration, it performed the correct movements, confirming that the untethered, open loop control logic works as intended. But this highlights that we need to integrate sensor data to avoid collisions and improve navigation in the future.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/openloop.png"
+                        alt="Lab 4 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/F86EqDSVp9Y" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                            <div class="empty-line"></div>
+
+                        <h4 class="text-primary">8. analogWrite Frequency Discussion</h4>
+                        <p class="mb-4 text-justify">
+                        Based on the Arduino reference, I know that analogWrite generates a PWM frequency of approximately 490 Hz on most pins, but the datasheet of the Artemis board does not directly demonstrate the default PWM frequency. 
+                        Based on my experiment, as the following oscilloscope's image shows, the time scale is 2 ms/div, and the period is around 5.4 ms(2.7 divisions * 2 ms/div), so the frequency is around 185 Hz (1/5.4ms).
+                        This is adequately fast for our motors since it is higher than the data collection frequencies of our sensors—the IMU collects data at about 340 Hz and the ToF sensor at around 15 Hz. 
+                        The higher PWM frequency helps ensure smooth power delivery to the motors without interfering with sensor readings.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                            style="max-width: 500px; height: auto;"
+                            src="assets/img/portfolio/Lab4/Oscliscope.png"
+                            alt="Lab 4 Setup"/>
+                        <p class="mb-4 text-justify">
+                        However, I believe there are benefits to manually configuring the timers for an even faster PWM signal. 
+                        A higher frequency can lead to smoother motor control at low speeds, reduce audible noise, and minimize electromagnetic interference. 
+                        Adjusting the PWM frequency might also improve the overall efficiency and responsiveness of the motor control system. 
+                        Although the default 490 Hz is sufficient, fine-tuning the timers could yield more refined control in specific situations.
+                        </p>
+                        <div class="empty-line"></div>
+                        <h4 class="text-primary">9. Lower Limit PWM Value Once in Motion</h4>
+                        <p class="mb-4 text-justify">
+                        I wrote this code to experimentally determine both the PWM required to start the robot moving and the lowest PWM it can maintain once in motion. 
+                        I began at a PWM of 40 for both motors to overcome static friction, then gradually decreased the value in steps of two every second. 
+                        I noticed that the car completely stopped after about 8 seconds. 
+                        This suggests that my lowest sustaining PWM lies around 24 (40 - 2*8) under the current conditions (battery level, floor friction, etc.). 
+                        The video demonstration confirmed these findings, showing a smooth transition from higher PWM to near-stall speed.
+                        </p>
+                        <img class="img-fluid rounded mb-4"
+                        style="max-width: 500px; height: auto;"
+                        src="assets/img/portfolio/Lab4/lowest.png"
+                        alt="Lab 4 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/ihB-6HrX4t4" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                        <!-- Conclusion Section -->
+                        <div class="empty-line"></div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                <h3 class="text-center text-primary mb-3">Conclusion</h3>
+                <p class="mb-4 text-justify">
+                    In conclusion, I successfully soldered and built my own functional robot car, including the Artemis Nano board, IMU board, 2 ToF sensors, dual motor drivers, and separate power supplies. 
+                    I tested the motor drivers and PWM signals, calibrated the motor speeds, and implemented various movements like straight driving, pivot turns, and reversing.
+                    These experiences will help me design more robust and responsive control systems in future labs and projects.
+                </p>
                 </div>
             </div>
-        </div>
+
+                    </div>
+                    </div>
+        
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div> <!-- /.container -->
+                </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 4 end -->
+  
+  
         <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal4Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
