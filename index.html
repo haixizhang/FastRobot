@@ -1633,8 +1633,8 @@
                             <div class="empty-line"></div>
 
                         <h4 class="text-primary">8. analogWrite Frequency Discussion</h4>
-                        <p class="mb-4 text-justify">
-                        Based on the Arduino reference, I know that analogWrite generates a PWM frequency of approximately 490 Hz on most pins, but the datasheet of the Artemis board does not directly demonstrate the default PWM frequency. 
+                        <p class="mb-4 text-justify"> 
+                        Based on the <a href="https://www.arduino.cc/reference/tr/language/functions/analog-io/analogwrite/">Arduino reference</a>, I know that analogWrite generates a PWM frequency of approximately 490 Hz on most pins, but the datasheet of the Artemis board does not directly demonstrate the default PWM frequency. 
                         Based on my experiment, as the following oscilloscope's image shows, the time scale is 2 ms/div, and the period is around 5.4 ms(2.7 divisions * 2 ms/div), so the frequency is around 185 Hz (1/5.4ms).
                         This is adequately fast for our motors since it is higher than the data collection frequencies of our sensors—the IMU collects data at about 340 Hz and the ToF sensor at around 15 Hz. 
                         The higher PWM frequency helps ensure smooth power delivery to the motors without interfering with sensor readings.
