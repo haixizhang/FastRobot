@@ -1838,7 +1838,7 @@
                             Ultimately, the most reliable behavior was observed with <code>Kp = 1.1</code>, <code>Ki = 0</code>, and <code>Kd = 20</code>, 
                             with a setpoint of 304&nbsp;mm. Under these gains, the proportional component effectively closed the gap, 
                             while the derivative term curtailed overshoot near the wall. Based on the Distance vs Time figure, 
-                            the maximum speed of the robot car is calculated to be 0.5&nbsp;m/s ((800 - 300)&nbsp;mm/(76000 - 75000)&nbsp;ms). 
+                            the maximum speed of the robot car is calculated to be 0.7&nbsp;m/s ((750 - 450)&nbsp;mm/(0.5*(76000 - 75000))&nbsp;ms).
                             Plots of PID error, distance, and motor PWM over time confirm that this final gain combination produces an approach with minimal oscillation and a stable stop, 
                             suggesting that a PD controller is appropriate in this scenario.
                         </p>     
@@ -1990,10 +1990,7 @@
                               Implementing feed-forward control to complement the PID loop might allow for more precise speed adjustments during the approach, reducing oscillatory behavior.
                             </li>
                             <li>
-                              Fine-tuning the motor driver calibration and compensating for mechanical discrepancies could enhance symmetry in motor response, contributing to smoother control.
-                            </li>
-                            <li>
-                              Optimizing BLE communication latency and data logging can facilitate more accurate real-time debugging and faster system adjustments.
+                              Instead of clamping both the car moving forward and backward maximum speed to 100, we can only clamp the forward speed so that the car can stop faster.
                             </li>
                           </ul>
                           <p class="mb-4 text-justify">
