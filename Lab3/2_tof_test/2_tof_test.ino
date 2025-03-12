@@ -11,7 +11,6 @@ unsigned long loopCounter = 0;
 unsigned long lastLoopTime = 0;
 unsigned long lastSensor1Update = 0;
 unsigned long sensor1Interval = 0;
-
 void setup(void) {
   Wire.begin();
   Serial.begin(115200);
@@ -58,18 +57,24 @@ void loop(void) {
   if (distanceSensor1.checkForDataReady()) {
     int distance1 = distanceSensor1.getDistance();
     distanceSensor1.clearInterrupt();
-    // In continuous mode, do not stop ranging
-
-    // Calculate sensor update interval
-    if (lastSensor1Update != 0) {
-      sensor1Interval = currentTime - lastSensor1Update;
-    }
-    lastSensor1Update = currentTime;
-
     Serial.print("Sensor1 Distance: ");
     Serial.print(distance1);
-    Serial.print(" mm, Update Interval: ");
-    Serial.print(sensor1Interval);
-    Serial.println(" ms");
   }
+    // In continuous mode, do not stop ranging
+
+    // // Calculate sensor update interval
+    // if (lastSensor1Update != 0) {
+    //   sensor1Interval = currentTime - lastSensor1Update;
+    // }
+    // lastSensor1Update = currentTime;
+  if (distanceSensor2.checkForDataReady()) {
+    int distance2 = distanceSensor2.getDistance();
+    distanceSensor2.clearInterrupt();
+    Serial.print("mm,  Sensor2 Distance: ");
+    Serial.print(distance2);
+  }
+    // Serial.print(" mm, Update Interval: ");
+    // Serial.print(sensor1Interval);
+    // Serial.println(" ms");
+    delay(500);
 }

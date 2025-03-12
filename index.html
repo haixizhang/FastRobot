@@ -105,7 +105,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/Lab3/image1.jpg" alt="Lab 3: TOFs" style="max-width: 280px; height: auto;"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab3/image1.jpg" alt="Lab 3: TOFs" style="max-width: 450px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 3: Time of Flight Sensors </h5>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/Lab4/header.jpg" alt="Lab 3: TOFs" style="max-width: 280px; height: auto;"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab4/header.jpg" alt="Lab 4: Motors" style="max-width: 450px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 4: Motors and Open Loop Control </h5>
                         </div>
                     </div>
@@ -121,7 +121,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/safe.png" alt="Locked Safe"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 4: PID" style="max-width: 400px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 5: PID Control and Linear Exterpolation </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -1703,33 +1704,333 @@
         <!-- Lab 4 end -->
   
   
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal4Label" aria-hidden="true">
+        <!-- Lab 5 start -->
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="portfolioModal5Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Locked Safe</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/safe.png" alt="Locked Safe"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
+            <div class="modal-content">
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline Style Classes -->
+                    <style>
+                    .text-justify {
+                        text-align: justify;
+                    }
+                    .empty-line {
+                        margin-bottom: 1.5rem;
+                    }
+                    </style>
+        
+                    <!-- Lab Report Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 5: PID Control and Linear Exterpolation</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
                         </div>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 5 Setup"/>
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+        
+                    <!-- Introduction -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                        <p class="mb-4 text-justify">
+                        The primary objective of this lab is to implement a PID (Proportional–Integral–Derivative) controller that directs a small robot to stop at a precise distance—about one foot—from a wall. A time-of-flight (ToF) sensor provides distance feedback, while an Artemis microcontroller manages real-time computation and logs diagnostic data. After the run, the system transmits these logs to a host computer via Bluetooth Low Energy (BLE) for further analysis and tuning.
+                        </p>
+                        <p class="mb-4 text-justify">
+                        Additionally, linear extrapolation of ToF data is incorporated to mitigate sensor sampling delays and improve responsiveness. Furthermore, an integrator wind-up protection mechanism is added to enhance robustness in the presence of motor saturation or changing floor surfaces. 
+                        And finally, the Car and System is successfully tested on both the Lab smooth floor and the  carpet floor.
+                        </p>
+                    </div>
+                    </div>
+                    <!-- Prelab and BLE Setup -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Prelab and BLE Setup</h3>
+                        <h4>Parts Required</h4>
+                        <p class="mb-4 text-justify">
+                        A fully assembled robot comprising an <a href="https://www.sparkfun.com/products/15443" target="_blank">Artemis microcontroller</a>, and <a href="https://www.pololu.com/product/3415" target="_blank">ToF sensors</a> is used in this experiment.
+                        </p>
+                        <h4>BLE Communication</h4>
+                        <p class="mb-4 text-justify">
+                        A Bluetooth Low Energy link is utilized to transmit commands from a Python (Jupyter) environment to the microcontroller and to send sensor data back after the run. This facilitates rapid adjustment of PID gains and efficient logging of system variables.
+                        </p>
+                        <h4>Arduino-Side BLE Implementation</h4>
+                        <p class="mb-4 text-justify">
+                        The firmware includes three new key commands in the <code>handle_command()</code> function:
+                        <br><strong>SET_PID_GAINS</strong>: Parses incoming float values (Kp, Ki, Kd, and setpoint) to update global variables.
+                        <br><strong>START_PID_CONTROL</strong>: Initiates the primary PID loop for a user-specified duration (default 5000 ms), during which ToF readings are gathered, PID outputs computed, and motors driven.
+                        <br><strong>GET_PID_DATA</strong>: Instructs the system to transmit logged data arrays over BLE upon run completion.
+                        </p>
+                        <p class="mb-4 text-justify">
+                        Data are stored in arrays of 1000 samples. 
+                        With two integer arrays and three float arrays, approximately 16 KB of memory is used—well within the available 384 KB. 
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image8.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                        A flag is also included to stop the robot if the BLE connection fails.
+                        </p>
+                        <h4>Jupyter (Python) Side</h4>
+                        <p class="mb-4 text-justify">
+                        A corresponding Python script subscribes to the RX_STRING characteristic using a notification handler that parses incoming data strings formatted 
+                        as <code>"T:&lt;time&gt;|E:&lt;error&gt;|U:&lt;output&gt;|D:&lt;distance&gt;|M:&lt;motorPWM&gt;"</code>. 
+                        The parsed fields are appended to Python lists and later visualized using matplotlib. 
+                        Commands such as <code>SET_PID_GAINS</code>, <code>START_PID_CONTROL</code>, and <code>GET_PID_DATA</code> 
+                        are sent via BLE to adjust controller parameters, initiate the run, and retrieve logged samples. And these commands are used in this format: <code> ble.send_command(CMD.x, …) </code>.
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image13.png" alt="Lab 5 Setup"/>
+
+                    </div>
+                    </div>
+        
+                    <!-- PID Control Implementation -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. PID Control Implementation</h3>
+                        <p class="mb-4 text-justify">
+                        The PID model follows the classical structure:
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/PID.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                        where <code>e(t)</code> is the difference between the desired setpoint and the measured distance. 
+                        The proportional term responds to the current error, increasing Kp can make the robot car more responsive, but it may also introduce oscillations.
+                        The integral term accumulates past errors, which can help eliminate steady-state errors but may cause overshoot or instability if too high.
+                        The derivative term anticipates future errors, which can help dampen oscillations and improve settling time.
+                        </p>
+
+                        <p class="mb-4 text-justify">
+                            Distance measurements come from <code>readDistanceSensor1()</code>, which checks the ToF sensor in a non-blocking manner. 
+                            If no new reading is ready, the function returns the most recent valid distance. The principal PID logic resides in <code>runPIDIteration()</code>. 
+                            This function first calculates the elapsed time since its last call (<code>dt</code>), 
+                            then obtains the latest distance reading from <code>readDistanceSensor1()</code>. 
+                            The error is computed as the difference between the setpoint (<code>pidSetpoint</code>) and the measured distance. 
+                            The integral term accumulates the error over time, and the derivative term captures abrupt changes by comparing the current error to the previous one. 
+                            These three contributions are multiplied by the user-specified gains <code>Kp</code>, <code>Ki</code>, and <code>Kd</code> respectively, 
+                            and then summed to form the controller’s output. A call to <code>mapPIDToMotor(float pidVal)</code>  clamps the PID controller’s floating-point output to the integer range −255 to 255, preparing it for use in PWM commands.
+                            The function <code>setMotorSpeed(int motorCmd)</code>  receives this clamped integer command and decides which pins to drive, as well as how strongly to drive them.
+                            A calibration step in setMotorSpeed() scales the PWM duty cycle differently for the left (blue) and right (other) motors to compensate for hardware differences, 
+                            while a protective clamp (absCmd > 100) prevents excessively high speeds that might cause collisions. 
+                            Each cycle also logs the relevant data—timestamp, error, PID output, distance, 
+                            and motor command—into arrays that can later be retrieved over Bluetooth for offline analysis.
+                          </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image10.png" alt="Lab 5 Setup"/>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image12.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                            In this lab, the PID controller is tunded and tested to stop the robot car at a distance of 304&nbsp;mm and 608&nbsp;mm from the wall.
+                            When tuning the controller, initial tests were performed with <code>Kp = 1.5</code> while leaving the integral and derivative gains at zero. 
+                            This high proportional gain led to oscillations around the target distance, indicating an overly aggressive response. 
+                            Reducing <code>Kp</code> diminished these oscillations but did not yield a satisfactory settling behavior. 
+                            Introducing a relatively large derivative gain (<code>Kd = 20</code>) helped the robot decelerate more gracefully as it approached the wall, 
+                            providing essential damping to prevent extreme oscillations. 
+                            Experiments with a small integral term (<code>Ki = 0.05</code>) revealed that even minimal integral action could cause the robot to overshoot and hit the wall, 
+                            likely due to excessive error accumulation during saturation. 
+                            Ultimately, the most reliable behavior was observed with <code>Kp = 1.1</code>, <code>Ki = 0</code>, and <code>Kd = 20</code>, 
+                            with a setpoint of 304&nbsp;mm. Under these gains, the proportional component effectively closed the gap, 
+                            while the derivative term curtailed overshoot near the wall. Based on the Distance vs Time figure, 
+                            the maximum speed of the robot car is calculated to be 0.5&nbsp;m/s ((800 - 300)&nbsp;mm/(76000 - 75000)&nbsp;ms). 
+                            Plots of PID error, distance, and motor PWM over time confirm that this final gain combination produces an approach with minimal oscillation and a stable stop, 
+                            suggesting that a PD controller is appropriate in this scenario.
+                        </p>     
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image1.png" alt="Lab 5 Setup"/>            
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image5.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                            The following video demonstrations illustrate the robot car's behavior with different PID controller settings:
+                          </p>
+                          <ul>
+                            <li>
+                              <strong>Kp = 1.2, Ki = 0, Kd = 0, and setpoint = 304 mm:</strong>
+                              <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" 
+                                        src="https://www.youtube.com/embed/0Hh4V8Upx_o" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                              </div>
+                            </li>
+                            <li>
+                              <strong>Kp = 1.2, Ki = 0, Kd = 20, and setpoint = 304 mm:</strong>
+                              <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" 
+                                        src="https://www.youtube.com/embed/xhW0FeIULYg" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                              </div>
+                            </li>
+                            <li>
+                              <strong>Kp = 1.2, Ki = 0.05, Kd = 20, and setpoint = 304 mm:</strong>
+                              <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" 
+                                        src="https://www.youtube.com/embed/De-LaS5WPkk" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                              </div>
+                            </li>
+                            <li>
+                              <strong>Kp = 1.2, Ki = 0.0, Kd = 20, and setpoint = 608 mm:</strong>
+                              <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" 
+                                        src="https://www.youtube.com/embed/P2SfGAFvFgU" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                              </div>
+                            </li>
+                          </ul>
+                          
+                        </p>
+
+                    </div>
+                    </div>
+        
+                    <!-- Sensor Data Analysis -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">4. Sensor Data Analysis</h3>
+                        <p class="mb-4 text-justify">
+                            In my current setup, the sensor operates in short mode, which prioritizes faster refresh over extended range. 
+                            Based on Section 3, PID Data Notification timestamps Image (Blue line parts) show that one typical interval between consecutive ToF measurements spans from T=234785 ms 
+                            to T=234882&nbsp;ms, corresponding to 97&nbsp;ms. This gap implies a ToF sensor sampling rate of approximately <code>1/0.097&nbsp;s≈10.3&nbsp;Hz</code>.
+                        </p>
+
+                        <p class="mb-4 text-justify">
+                            Over the entire five-second experiment, 961 messages were recorded. 
+                            Dividing 961 messages by five seconds yields roughly 192 messages per second (<code>∼192&nbsp;Hz</code>). 
+                            These messages include the PID loop’s repeated calculations and log entries. 
+                            Hence, the control loop executes more rapidly than the sensor updates, ensuring that the robot can still issue timely motor commands and compute errors even when new distance readings are not yet available.
+                        </p>  
+                        <p class="mb-4 text-justify">
+                            The significant frequency disparity—where the ToF sensor updates at roughly 10 Hz while the main loop cycles at nearly 200 Hz—necessitates an extrapolation strategy. 
+                            By estimating new distance values based on prior measurements, the controller maintains smooth and responsive motor control even in the intervals between actual sensor updates.
+                        </p>
+
+                    </div>
+                    </div>
+        
+                    <!-- Extrapolation -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">5. Extrapolation</h3>
+                        <p class="mb-4 text-justify">
+                        Linear extrapolation is employed to compensate for the slow rate of new ToF measurements. 
+                        This method uses two consecutive valid distance readings and their timestamps. 
+                        If a fresh sensor reading is available, the code updates the current and previous values; otherwise, 
+                        it calculates the slope (the difference in distance divided by the difference in time) and multiplies it by the elapsed time since the last reading. 
+                        The product is then added to the most recent distance to estimate a new value.
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image9.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                        The function <code>getDistanceSensor1Extrapolated()</code> implements this logic. 
+                        With extrapolation enabled, the original gain set used without it became inadequate. 
+                        After iterative tuning, the final gains were set to <code>K_p = 30</code>, <code>K_i = 0.005</code>, and <code>K_d = 20</code>,
+                        resulting in a responsive controller that reliably converges to the setpoint while incorporating both raw and extrapolated measurements.
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image11.png" alt="Lab 5 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/jlpzBN54XSU" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                          </div>
+                    </div>
+                    </div>
+        
+                    <!-- Wind-up Protection -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">6. Wind-up Protection</h3>
+                        <p class="mb-4 text-justify">
+                        Integrator wind-up occurs when the actuator saturates, allowing the integral term to accumulate excessive error. 
+                        To prevent this, the implementation clamps the integral term to a maximum of 800.0f using <code>#define MAX_INTEGRAL 800.0f</code>. 
+                        Whenever the integral term attempts to exceed ±800, it is forced back within these bounds. 
+                        Comparisons of distance plots and videos show that wind-up protection results in a smoother response, 
+                        with the robot converging more reliably to the target distance and exhibiting reduced overshoot and oscillations.
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image3.png" alt="Lab 5 Setup"/>
+                        <p class="mb-4 text-justify">
+                        The following figures and video demonstrates the robot car's behavior with linear extrapolation and integrator wind-up protection:
+                        </p>
+                        <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image2.png" alt="Lab 5 Setup"/>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/IxiGsNin6YY" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                          <h3 class="text-center text-primary mb-3">7. Discussion</h3>
+                          <p class="mb-4 text-justify">
+                            Although the implemented PID controller with sensor extrapolation and wind-up protection results in a reliable system, some improvements could further enhance performance. A small oscillation near the target setpoint remains evident, suggesting that additional refinements are needed.
+                          </p>
+                          <ul>
+                            <li>
+                              Refining the derivative term by incorporating a low-pass filter could further reduce noise and diminish residual oscillations.
+                            </li>
+                            <li>
+                              Exploring adaptive gain scheduling or advanced control strategies, such as implementing a Kalman filter for sensor fusion, may improve stability under varying operating conditions.
+                            </li>
+                            <li>
+                              Implementing feed-forward control to complement the PID loop might allow for more precise speed adjustments during the approach, reducing oscillatory behavior.
+                            </li>
+                            <li>
+                              Fine-tuning the motor driver calibration and compensating for mechanical discrepancies could enhance symmetry in motor response, contributing to smoother control.
+                            </li>
+                            <li>
+                              Optimizing BLE communication latency and data logging can facilitate more accurate real-time debugging and faster system adjustments.
+                            </li>
+                          </ul>
+                          <p class="mb-4 text-justify">
+                            These potential enhancements represent avenues for future work that may yield a more stable and refined control system, further minimizing oscillations and improving overall performance.
+                          </p>
+                        </div>
+                      </div>
+                      
+                    <!-- Conclusion -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">8. Conclusion</h3>
+                        <p class="mb-4 text-justify">
+                        The lab demonstrated a robust PID-based position control system integrating ToF sensor data, linear extrapolation, and integrator wind-up protection. 
+                        The final tuning—with appropriate gain adjustments and anti-windup measures—achieved a smooth, precise approach to the target distance, 
+                        validating the effectiveness of these strategies for real-time embedded control.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div> <!-- /.container -->
+                </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 5 end -->
+
+    
         <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal5Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
