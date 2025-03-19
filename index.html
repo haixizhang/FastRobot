@@ -129,7 +129,9 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="Submarine"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 5: Orientation Control" style="max-width: 400px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 6: PID Orientation Control </h5>
+
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -2028,33 +2030,324 @@
         <!-- Lab 5 end -->
 
     
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal5Label" aria-hidden="true">
+        <!-- Lab 6 start -->
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="portfolioModal6Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <!-- Close Button -->
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+
+                    <!-- Modal Body -->
                     <div class="modal-body text-center">
                         <div class="container">
+
+                            <!-- Inline Style Classes -->
+                            <style>
+                                .text-justify {
+                                    text-align: justify;
+                                }
+                                .empty-line {
+                                    margin-bottom: 1.5rem;
+                                }
+                            </style>
+
+                            <!-- Lab Report Title and Header -->
                             <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Submarine</h2>
-                                    <!-- Icon Divider-->
+                                <div class="col-lg-10">
+                                    <h2 class="portfolio-modal-title text-center mb-0">Lab 6: Orientation Control</h2>
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
                                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/submarine.png" alt="Submarine"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 6 Setup"/>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                            <!-- 1. Introduction -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                                    <p class="mb-4 text-justify">
+                                        The objective of Lab 6 was to implement orientation control for our robot using PID feedback control with data from an Inertial Measurement Unit (IMU). 
+                                        Building upon our previous lab experience with PID control for distance regulation using Time-of-Flight sensors, 
+                                        this lab involved controlling the yaw orientation of our robot. 
+                                        The primary goal was to develop a reliable and precise controller that rotates the robot to a specified orientation while stationary. 
+                                        I employed the onboard Digital Motion Processor (DMP) within our IMU to minimize drift and improve orientation accuracy. 
+                                        The practical implementation, real-time tuning of PID parameters, and analysis of derivative behavior and 
+                                        integral wind-up protection were key aspects explored throughout this lab.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 2. Prelab and BLE Setup -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">2. Prelab and BLE Setup</h3>
+                                    <h4>Parts Required</h4>
+                                    <p class="mb-4 text-justify">
+                                        A fully assembled robot comprising an <a href="https://www.sparkfun.com/products/15443" target="_blank">Artemis microcontroller</a>, and <a href="https://www.digikey.com/en/products/detail/pimoroni-ltd/PIM448/10246391" target="_blank">IMU</a> is used in this experiment.
+                                    </p>
+                                    <h4>BLE Communication</h4>
+                                    <p class="mb-4 text-justify">
+                                        A Bluetooth Low Energy (BLE) link facilitates real-time data exchange between the robot and a host computer running Python in a Jupyter Notebook. This communication is crucial for sending commands—such as updated PID gains or new orientation setpoints—to the robot while it is operating, and for receiving sensor and debug data back from the robot for analysis.
+                                    </p>
+                                    <h4>Arduino-Side Side Implementation</h4>
+                                    <p class="mb-4 text-justify">
+                                        To maintain consistency with our earlier labs, I continue to use a command-based approach in the <code>handle_command()</code> function. 
+                                        In Lab 5, I introduced commands such as <strong>SET_PID_GAINS</strong>, <strong>START_PID_CONTROL</strong>, and <strong>GET_PID_DATA</strong> 
+                                        for distance-based control. For orientation control in Lab 6, I added new commands:
+                                    </p>
+                                    <p class="mb-4 text-justify">
+                                        <strong>SET_ORIENTATION_GAINS</strong>: Parses incoming float values for K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>, and the yaw setpoint, then updates global orientation PID variables.<br>
+                                        <strong>START_ORIENTATION_CONTROL</strong>: Initiates a PID loop for yaw regulation over a user-specified duration (e.g., 5000 ms). During this period, the robot logs yaw, error, and motor outputs.<br>
+                                        <strong>GET_ORIENTATION_DATA</strong>: Requests the microcontroller to transmit the logged yaw-control data, such as time stamps, yaw angles, PID outputs, and motor commands.
+                                    </p>
+                                    <p class="mb-4 text-justify">
+                                        The firmware stores time stamps, errors, outputs, and commands in arrays (up to 1000 samples each) for later retrieval. 
+                                        As there are 2 int arrays and 3 float arrays, the maximum storage needed is 1000*2*2 + 1000*3*4 ~=16 KBytes, 
+                                        which is well within the Artemis module’s available RAM. 
+                                        In addition, a simple check ensures that if the BLE central disconnects mid-run, 
+                                        the motors are disabled to prevent the robot from spinning indefinitely without supervision.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab6/image8.png" alt="Lab 6 "/>
+
+                                    <h4>Jupyter (Python) Side Implementation</h4>
+                                    <p class="mb-4 text-justify">
+                                        A corresponding Python script subscribes to the <code>RX_STRING</code> characteristic to receive notifications. 
+                                        The notifications, formatted as <code>"T:&lt;time&gt;|Y:&lt;yaw&gt;|E:&lt;error&gt;|U:&lt;output&gt;|M:&lt;motor&gt;"</code>, 
+                                        are parsed and appended to lists for plotting with matplotlib. 
+                                        Commands are sent via a helper function such as:
+                                        <code>ble.send_command(CMD.SET_ORIENTATION_GAINS, "5.0|0.01|10.0|0.0")</code> followed by 
+                                        <code>ble.send_command(CMD.START_ORIENTATION_CONTROL, "5000")</code>.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab6/image12.png" alt="Lab 6 "/>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab6/image6.png" alt="Lab 6 "/>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab6/image2.png" alt="Lab 6 "/>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab6/image11.png" alt="Lab 6 "/>
+
+                                </div>
+                            </div>
+
+                            <!-- 3. Digital Motion Processing (DMP) for Orientation -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">3. Digital Motion Processing (DMP) for Orientation</h3>
+                                    <h4>Overview of the Digital Motion Processor</h4>
+                                    <p class="mb-4 text-justify">
+                                        Since in previous Lab 2 IMU, I have encountered drift and bias issues when using raw gyroscope data for orientation estimation.
+                                        In this lab, I relied on the <a href="https://github.com/sparkfun/SparkFun_ICM-20948_ArduinoLibrary/blob/main/DMP.md">ICM-20948 sensor’s Digital Motion Processor (DMP)</a>
+                                        to obtain more accurate orientation estimates. The DMP internally fuses accelerometer and gyroscope data, outputting a stable quaternion representation of the sensor’s orientation in real time. This approach eliminates the need to manually integrate raw gyroscope data, significantly reducing drift and bias issues.
+                                    </p>
+                                    <h4>DMP Configuration and Sample Code Testing</h4>
+                                    <p class="mb-4 text-justify">
+                                        Following the <a href="https://github.com/FastRobotsCornell/FastRobots-2025/blob/main/docs/tutorials/dmp.md">tutorial</a> and <a href="https://github.com/sparkfun/SparkFun_ICM-20948_ArduinoLibrary/blob/main/DMP.md">official readme</a>,
+                                        I first edit the <code>ICM_20948_C.h</code> file to <code>#define ICM_20948_USE_DMP</code> and <code>#define ICM_20948_USE_DMP_FAST</code> to enable DMP support. 
+                                        Next, I ran the sample code <code>Example7_DMP_Quat6_EulerAngles</code> to verify that the DMP was functioning correctly. And based on the following video, where I rotate the robot car by hand and observe the quaternion data (<strong>Yaw</strong>) change in real time, the DMP is successfully configured.
+                                        I also tested the DMP with the motor running to ensure that the orientation data remained stable during operation.
+                                    </p>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" 
+                                                src="https://www.youtube.com/embed/cAOSrLqr28I" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                    <h4>DMP Initialization</h4>
+                                    <p class="mb-4 text-justify">
+                                        Now return to my own code, during the <code>void setup()</code> routine on the Artemis, I initialize the ICM-20948 and configure the DMP with maximum ODR rate as follows:
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image5.png" alt="Lab 6 "/>
+
+                                    <h4>Extracting Yaw from Quaternion Data</h4>
+                                    <p class="mb-4 text-justify">
+                                        Once configured, the IMU outputs quaternion data into its FIFO buffer at each DMP update. 
+
+                                        The following function retrieves and processes the data to extract the yaw angle:
+                                    </p>
+                                    <p class="mb-4 text-justify">
+                                        In this code snippet, the function first reads data from the DMP’s FIFO buffer and checks if valid 
+                                        <strong>Quat6</strong> (game rotation vector) data are present. The IMU outputs the quaternion components 
+                                        (<strong><em>Q<sub>1</sub>, Q<sub>2</sub>, Q<sub>3</sub></em></strong>) in a fixed-point format, which are then normalized 
+                                        to floating-point by dividing by <code>2<sup>30</sup></code> (i.e., <code>1073741824.0</code>). Next, the 
+                                        real part <em>Q<sub>0</sub></em> (labeled here as <code>qw</code>) is computed under the assumption of a 
+                                        unit quaternion. Finally, the yaw angle is extracted by applying the 
+                                        <a href="https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Quaternion_to_Euler_angles_(in_3-2-1_sequence)_conversion">standard quaternion-to-Euler conversion formula</a>:
+                                        <code>
+                                            yaw = atan2(2 * (qw * q3 + q1 * q2), 1 - 2 * (q2^2 + q3^2)) * (180.0 / M_PI);
+                                        </code>
+                                    </p>
+
+                                    <p class="mb-4 text-justify">
+                                        The result is converted from radians to degrees and returned as the final yaw measurement, which is 
+                                        then used in the PID control loop. 
+                                        By fusing accelerometer and gyroscope data internally, the DMP provides stable, low-drift yaw measurements 
+                                        that are essential for accurate orientation control.
+
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image9.png" alt="Lab 6 "/>
+                            </div>
+
+                            <!-- 4. PID Control Implementation -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">4. PID Control Implementation</h3>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab5/PID.png" alt="Lab 6"/>
+                                    <p class="mb-4 text-justify">
+                                        Following the similar idea of PID control discussed in Lab5, the PID controller continuously adjusts the robot’s motor commands based on the yaw error—the difference between the desired setpoint and 
+                                        the current yaw. Instead of numerically differentiating the integrated yaw, 
+                                        I directly use the gyroscope’s z-axis reading (after low-pass filtering) to compute the derivative term. 
+                                        This approach minimizes derivative kick when the setpoint changes. 
+                                        The integral term is clamped to prevent wind-up, ensuring that the controller remains stable even during motor saturation. 
+                                        The final output is mapped to a safe PWM range for driving the motors in opposite directions to achieve in-place rotation.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image4.png" alt="Lab 6 "/>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image1.png" alt="Lab 6 "/>
+                                    <h4>Low-Pass Filtering</h4>
+                                    <p class="mb-4 text-justify">
+                                        The low-pass filter (LPF) in the derivative computation is designed to smooth the raw gyroscope data, 
+                                        reducing high-frequency noise that could otherwise lead to erratic control actions. 
+                                        In this implementation, the LPF computes a weighted average between the previous filtered value and the latest gyroscope reading, 
+                                        using the constant <code>alpha</code> (set to 0.2) to control the update rate. 
+                                        This helps in obtaining a more stable and reliable estimate of the angular velocity, 
+                                        which is then negated to form the derivative term. 
+                                        The negative sign is used because the derivative of the error (setpoint minus current yaw) is the negative of the rate of change of the yaw. 
+                                    </p>
+                                    
+                                    <pre class="mb-4 text-justify"> 
+                                        // 4) Derivative from gyro
+                                        static float filteredGyroZ = 0.0f;
+                                        float alpha = 0.2f; // low-pass
+                                        float rawGyroZ = myICM.gyrZ(); // deg/sec
+                                        filteredGyroZ = (1 - alpha)*filteredGyroZ + alpha*rawGyroZ;
+                                        // derivative(e) = 0 - d(theta)/dt if setpoint is constant
+                                        float derivativeTerm = -filteredGyroZ; 
+                                    </pre>
+                                    <h4>Wind-Up Protection</h4>
+                                    <p class="mb-4 text-justify">
+                                        To prevent integrator wind-up, I clamp the integral term within a specified maximum range. When the robot 
+                                        saturates its motors or encounters prolonged errors, the integral can otherwise grow excessively and cause 
+                                        large overshoots once the system recovers. By capping the integral term between <code>-MAX_INTEGRAL (-200)</code> and 
+                                        <code>MAX_INTEGRAL (+200)</code>, I ensure the controller remains stable and can more quickly respond to changing 
+                                        conditions without accumulating runaway error.
+                                    </p>
+                                    <pre class="mb-4 text-justify"> 
+                                        // 3) Integrator
+                                        static float integralTerm = 0.0f;
+                                        integralTerm += error * dt;
+                                        // clamp integrator to prevent wind-up
+                                        if (integralTerm > MAX_INTEGRAL)  integralTerm = MAX_INTEGRAL;
+                                        if (integralTerm < -MAX_INTEGRAL) integralTerm = -MAX_INTEGRAL;
+                                    </pre>
+                                    <p class="mb-4 text-justify">
+                                        This combination of proportional, integral (with anti-windup), and derivative actions ensures that 
+                                        the robot’s yaw control remains both responsive and stable. In the following section, I examine 
+                                        how various gains for these terms affect performance.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 5. Parameter Tuning and Results Analysis -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">5. Parameter Tuning and Results Analysis</h3>
+                                    <p class="mb-4 text-justify">
+                                        This section summarizes three representative tuning trials, each conducted over a 10-second period with a yaw setpoint of 0°.
+                                        And based on receiving around 960 messages per 10 seconds, the average update rate is calculated to be 960/10 = 96 Hz.
+                                    </p>
+                                    <!-- Trial A -->
+                                    <h4>Trial A: Proportional Only</h4>
+                                    <p class="mb-4 text-justify">
+                                        In this first trial, I set K<sub>p</sub> = 5, K<sub>i</sub> = 0, and K<sub>d</sub> = 0, effectively creating a proportional-only controller. As shown in the Yaw vs. Time plot, the robot responds quickly to initial yaw errors but displays multiple oscillations around the target angle before partially settling. The Orientation Error vs. Time graph indicates a moderate steady-state error, suggesting that while proportional control alone can correct gross misalignment, it does not fully eliminate the final offset. The PID Output and Motor Command plots confirm that the system repeatedly drives the motors in opposite directions with significant magnitudes, reflecting the high sensitivity of a purely proportional approach. This trial highlights the need for additional damping or integral action to reduce overshoot and correct long-term offset.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image10.png" alt="Trial A: Proportional Only"/>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" 
+                                                src="https://www.youtube.com/embed/Zy4h0ZjKqvQ" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                        </iframe>
+                                        </div>
+                                    <!-- Trial B -->
+                                    <h4>Trial B: Proportional-Integral</h4>
+                                    <p class="mb-4 text-justify">
+                                        In the second trial, I retain K<sub>p</sub> = 5 but introduce a small integral gain (K<sub>i</sub> = 0.005), keeping K<sub>d</sub> = 0. The integral term helps the controller accumulate and correct any persistent error, which reduces the final offset compared to Trial A. Indeed, the Orientation Error plot shows that the system converges closer to zero. However, because there is no derivative term, the system can still exhibit noticeable oscillations, particularly if the integral accumulates too quickly or if the motors saturate. The PID Output and Motor Command plots show smaller swings than in Trial A, but occasional overshoot remains. This trial demonstrates that while adding an integral component addresses steady-state error, additional damping is necessary for a smooth response.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image7.png" alt="Trial B: Proportional-Integral"/>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" 
+                                                src="https://www.youtube.com/embed/YZmkEheHn9c" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                        </iframe>
+                                        </div>
+                                    <!-- Trial C -->
+                                    <h4>Trial C: Proportional-Integral-Derivative</h4>
+                                    <p class="mb-4 text-justify">
+                                        Finally, I add a derivative term with K<sub>p</sub> = 5, K<sub>i</sub> = 0.005, and K<sub>d</sub> = 10. The derivative action provides essential damping by responding to rapid changes in yaw. From the Yaw vs. Time plot, I see that the robot converges more quickly to the 0° setpoint, with fewer oscillations and reduced overshoot compared to the previous trials. The Orientation Error plot confirms a more stable trajectory, and the PID Output vs. Time reveals smoother control signals. As a result, the motor commands are more moderate and rapidly bring the robot to the target angle. This trial underscores the effectiveness of derivative feedback in mitigating oscillatory behavior, achieving faster settling times, and maintaining minimal steady-state error.
+                                    </p>
+                                    <img class="img-fluid rounded mb-4" style="max-width: 600px; height: auto;" src="assets/img/portfolio/Lab6/image3.png" alt="Trial C: Proportional-Integral-Derivative"/>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item"
+                                                src="https://www.youtube.com/embed/7x3t58mCN0I" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                        </iframe>
+                                        </div>
+                                    <p class="mb-4 text-justify">
+                                        Overall, these three trials illustrate the incremental benefits of adding integral and derivative terms to a proportional controller. Proportional-only control responds quickly but lacks fine error correction and damping. Introducing a small integral term helps eliminate steady-state error, albeit at the risk of continued oscillations if not paired with a derivative. Finally, incorporating both integral and derivative gains yields a more balanced controller that reduces overshoot and achieves a more precise, stable yaw alignment.
+                                    </p>
+
+                                </div>
+                            </div>
+
+                            <!-- 6. Conclusion -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">6. Conclusion</h3>
+                                    <p class="mb-4 text-justify">
+                                        In this lab, I implemented and tuned a PID controller to regulate the robot’s yaw using IMU data provided by the Digital Motion Processor. The trials showed that combining a moderate proportional term with a small integral component reduced the steady-state error, while the addition of a derivative term significantly dampened oscillations, leading to faster and more stable convergence. Key takeaways include the benefits of robust yaw measurements from the DMP, effective anti-windup mechanisms, and the importance of derivative action in mitigating oscillations. Future work may explore adaptive gain scheduling or advanced filtering techniques to further improve performance.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 7. References -->
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <h3 class="text-center text-primary mb-3">7. References</h3>
+                                    <ol>
+                                        <li>
+                                            <a href="https://github.com/FastRobotsCornell/FastRobots-2025/blob/main/docs/tutorials/dmp.md" target="_blank">Course Tutorial on DMP</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://github.com/sparkfun/SparkFun_ICM-20948_ArduinoLibrary/blob/main/DMP.md" target="_blank">SparkFun_ICM-20948_ArduinoLibrary/DMP.md</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Quaternion_to_Euler_angles_(in_3-2-1_sequence)_conversion" target="_blank">Standard Quaternion-to-Euler Conversion Formula</a>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Close Button -->
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-lg-8">
+                                    <button class="btn btn-primary" type="button" data-dismiss="modal">
+                                        <i class="fas fa-times fa-fw"></i> Close Window
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div> <!-- /.container -->
+                    </div> <!-- /.modal-body -->
+                </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 6 end -->
+
         <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal6Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
