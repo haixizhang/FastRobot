@@ -121,7 +121,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 4: PID" style="max-width: 400px; height: 210px;"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 5: PID" style="max-width: 400px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 5: PID Control and Linear Exterpolation </h5>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 5: Orientation Control" style="max-width: 400px; height: 210px;"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab5/image4.png" alt="Lab 6: Orientation Control" style="max-width: 400px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 6: PID Orientation Control </h5>
 
                         </div>
@@ -138,7 +138,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="New Image"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab7/image16.png" alt="Lab 7: Kalman Filter" style="max-width: 320px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 7: Kalman Filter </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -2330,7 +2331,19 @@
                                     </ol>
                                 </div>
                             </div>
-
+                        <!-- 7. Conclusion -->
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                            <h3 class="text-center text-primary mb-3">7. Conclusion</h3>
+                            <p class="mb-4 text-justify">
+                                The Kalman Filter implementation improved state estimation over linear extrapolation by continuously predicting the robot’s position at 5 ms intervals while updating with new ToF data. 
+                                This approach enabled smoother and more responsive PID control, allowing the robot to approach the wall with greater precision. 
+                                If I have more time, I would further tunded the PID & Kalman Filter parameters to optimize the prediction accuracy and explore additional sensor fusion techniques to enhance the robot’s performance.
+                            </p>
+                            </div>
+                        </div>
+                        
+  
                             <!-- Close Button -->
                             <div class="row justify-content-center mt-4">
                                 <div class="col-lg-8">
@@ -2349,33 +2362,347 @@
         <!-- Lab 6 end -->    
 
 
-        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal6Label" aria-hidden="true">
+        <!-- Lab 7 start -->
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="portfolioModal7Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">New Image</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/image.svg" alt="New Image"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">New Image Description</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
+            <div class="modal-content">
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline Style Classes -->
+                    <style>
+                    .text-justify {
+                        text-align: justify;
+                    }
+                    .empty-line {
+                        margin-bottom: 1.5rem;
+                    }
+                    </style>
+
+                    <!-- Lab Report Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 7: Kalman Filter Implementation for Fast Robot Control</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                        </div>
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image16.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+
+                        <!-- You can include a representative image for Lab 7 here if desired -->
+                        <!-- <img class="img-fluid rounded mb-4" style="max-width: 500px; height: auto;" src="assets/img/portfolio/Lab7/some_image.png" alt="Lab 7 Setup"/> -->
+                    </div>
+                    </div>
+        
+                    <!-- 1. Introduction and Objective -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Introduction and Objective</h3>
+                        <p class="mb-4 text-justify">
+                        In Lab 5, the ToF sensor provided data at <strong>10 Hz</strong> while the PID control loop operated at approximately <strong>200 Hz</strong>, 
+                        which resulted in notable gaps between distance measurements. 
+                        To handle these gaps, I initially used a simple linear extrapolation method, as demonstrated in the Lab 5 code, to predict intermediate readings. 
+                        In this lab, I adopted a more sophisticated approach by implementing a Kalman Filter to integrate sensor data with a dynamic model 
+                        for improved state estimation. This method, detailed in both the Python and Arduino code, 
+                        aims to achieve smoother and more accurate predictions as the robot approaches the wall.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- 2. Estimate Drag and Momentum -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Estimate Drag and Momentum</h3>
+                        <p class="mb-4 text-justify">
+                        As shown in the lecture slides, the robot moves toward a wall and the state vector is defined as 
+                        <code>[x, ẋ]</code>, where <code>x</code> is the distance to the wall and <code>ẋ</code> is the velocity. The force equation 
+                        <em>F = m·ẍ</em> is rewritten as <em>m·ẋ = u − d·ẋ</em> based on the assumption that the input <em>u</em> (proportional to PWM) drives the robot forward while a drag term <em>d·ẋ</em> opposes its motion. At steady state, when the velocity is constant and the net force is zero, the drag coefficient can be determined from
+                        <code>d = u / ẋ<sub>final</sub></code>.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab7/image15.png" class="img-fluid" alt="Drag and Momentum Image">
+                            </div>
+                            <div class="empty-line"></div>
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab7/image6.png" class="img-fluid" alt="Additional Kalman Filter Image">
                             </div>
                         </div>
+                        <div class="empty-line"></div>
+
+
+                        <p class="mb-4 text-justify">
+                        To estimate the mass, we note that during a step response the robot’s speed reaches 90% of its final value at time <em>t<sub>0.9</sub></em>. 
+                        By substituting this into the step-response equations, we calculate the mass using 
+                        <code>m = -d · t<sub>0.9</sub> / ln(1 − 0.9)</code>. Consequently, the state-space model is defined as 
+                        <em>ẋ = ẋ</em> and <em>ẍ = (u / m) − (d / m)·ẋ</em>, with a measurement matrix <code>C = [1, 0]</code> 
+                        since the wall is set at zero and distances outside the wall are positive.
+                        </p>
+                        <p class="mb-4 text-justify">
+                        In my Arduino code, I introduced two new cases—<strong>START_STEP_RESPONSE</strong> and <strong>SEND_STEP_DATA</strong>—
+                        which allow the user to run the motors for 3000 ms at a PWM value of 130 (originally set to 150 but limited to 130 in <code>setMotorSpeed()</code> 
+                        for safety) while collecting ToF sensor readings as the robot approaches the wall. 
+                        The first plot shows the distance dropping steadily from roughly 2.0 m to near 0.0 m over three seconds, 
+                        while the second plot indicates that the computed speed increases to around 1.7 m/s and then falls sharply as the robot nears the wall.
+                        </p>
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image17.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/yj-dTU2doBg" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="empty-line"></div>
+
+                        <p class="mb-4 text-justify">
+                        I recorded all the data in <strong>step_response_data.csv</strong> for offline processing, 
+                        and by noting the final speed (around 1700 mm/s), the 90% rise speed (about 1530 mm/s), and the corresponding 1.5 s rise time, I used 
+                        <code>d = u / v<sub>final</sub></code> and 
+                        <code>m = -d · t<sub>0.9</sub> / ln(1 − 0.9)</code> 
+                        to estimate the drag coefficient and mass in preparation for implementing the Kalman Filter.
+                        </p>
+
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image11.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image5.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+        
+                    <!-- 3. Kalman Filter Design (Python) -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. Kalman Filter Design (Python)</h3>
+                        <div class="empty-line"></div>
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image10.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                        <p class="mb-4 text-justify">
+                        In the Python implementation, I first set the sampling time with <code>Δt = 0.1</code> seconds, 
+                        corresponding to a ToF 10 Hz sampling frequency. The continuous-time state-space model is defined by the matrices 
+                        <code>A = [[0, 1], [0, -d/m]]</code> and <code>B = [[0], [1/m]]</code>, 
+                        which capture the system dynamics based on the estimated drag coefficient <em>d</em> and mass <em>m</em>. 
+                        To discretize the model, I used a simple Euler method, resulting in 
+                        <code>A<sub>d</sub> = I + Δt × A</code> and <code>B<sub>d</sub> = Δt × B</code>. 
+                        The measurement matrix <code>C</code> is <code>[1, 0]</code>, meaning I measure the position directly. 
+                        I also defined the process noise covariance matrix <code>Σ<sub>u</sub></code> using a diagonal matrix with entries <code>(10.0<sup>2</sup> / Δt)</code> 
+                        for both position and velocity (since the ToF runs at 10 Hz), 
+                        and an estimated measurement noise covariance <code>Σ<sub>z</sub></code> as <code>[[10.0<sup>2</sup>]]</code>.
+                        </p>
+                        <p class="mb-4 text-justify">
+                        For the filter initialization, I set the initial state guess 
+                        <code>x<sub>0</sub> = [800.0, 0.0]</code>, where the position is 800 mm and the initial velocity is zero. 
+                        The initial uncertainty is modeled with a large covariance matrix <code>Σ<sub>0</sub> = 10<sup>3</sup> × I</code>. 
+                        This setup forms the basis for the Kalman Filter, 
+                        which will iteratively predict and update the state estimates based on the sensor measurements and system dynamics.
+                        </p>
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image12.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                    </div>
+                    </div>
+        
+                    <!-- 4. Implement KF in Python -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">4. Implement KF in Python</h3>
+                        <p class="mb-4 text-justify">
+                        To implement the Kalman Filter in Python, I first loaded the step response data from <strong>step_response_data.csv</strong> 
+                        and then used <code>np.interp</code> to resample the measured distance and motor PWM onto a uniform time grid at 10 Hz. 
+                        This uniform grid ensures that the Kalman Filter processes data at a consistent interval, matching the chosen <code>Δt</code>. 
+                        Next, I defined the <code>kf</code> function, which handles the prediction and update steps using the discretized system matrices 
+                        <code>A<sub>d</sub></code> and <code>B<sub>d</sub></code>, along with the measurement matrix <code>C</code>. 
+                        In the prediction step, the code multiplies the previous state and covariance 
+                        by the appropriate matrices and adds the process noise <code>Σ<sub>u</sub></code>, 
+                        while in the update step, it computes the Kalman gain based on the measurement noise <code>Σ<sub>z</sub></code>, 
+                        calculates the residual between the measurement and predicted state, and then refines both the state estimate and its covariance.
+                        </p>
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image4.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                        <img class="img-fluid" src="assets/img/portfolio/Lab7/image18.png" alt="Lab 7: Kalman Filter" style="max-width: 480px; height: auto;"/>
+                        <div class="empty-line"></div>
+
+                        <p class="mb-4 text-justify">
+                        I tested several values for <code>Σ<sub>u</sub></code> and <code>Σ<sub>z</sub></code> to observe how the filter responded (recall <code>Δt = 0.1s</code>).                         
+                        Initially, a high measurement noise of <code>50<sup>2</sup></code> and a process noise of <code>10<sup>2</sup> / Δt</code> 
+                        caused the filter to over-rely on the model, resulting in slower adaptation to sensor readings. 
+                        Conversely, a very small process noise of <code>1<sup>2</sup> / Δt</code> made the filter react too strongly to slight model discrepancies, 
+                        sometimes creating unnecessary fluctuations in the estimated state. After trying different combinations, 
+                        the best balance emerged when <code>variance of the process noise</sub></code> was set to <code>15<sup>2</sup> / Δt</code> for both position and velocity, 
+                        and <code>Σ<sub>z</sub></code> was set to <code>10<sup>2</sup></code>. 
+                        This choice allowed the filter to track the measured distance smoothly 
+                        while still leveraging the model to predict the robot’s state between sensor updates, as illustrated by the close overlap 
+                        between the measured and estimated position in the final plot.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-4">
+                                <strong>Trial 1: Larger Measurement Noise  (10<sup>2</sup> / Δt, 50<sup>2</sup>)</strong>
+                                <div>
+                                    <img src="assets/img/portfolio/Lab7/image1.png" alt="Trial 1: Larger Measurement Noise" class="img-fluid" style="max-width:480px; height:auto;">
+                                </div>
+                            </li>
+                            <li class="mb-4">
+                                <strong>Trial 2: Smaller Process Noise (1<sup>2</sup> / Δt, 10<sup>2</sup>)</strong>
+                                <div>
+                                    <img src="assets/img/portfolio/Lab7/image9.png" alt="Trial 2: Larger Process Noise" class="img-fluid" style="max-width:480px; height:auto;">
+                                </div>
+                            </li>
+                            <li class="mb-4">
+                                <strong>Trial 3: Best Fit Case (15<sup>2</sup> / Δt, 10<sup>2</sup> )</strong>
+                                <div>
+                                    <img src="assets/img/portfolio/Lab7/image2.png" alt="Trial 3: Best Fit Case" class="img-fluid" style="max-width:480px; height:auto;">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+        
+                    <!-- 5. Kalman Filter Integration on the Robot -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">5. Kalman Filter Integration on the Robot</h3>
+                        <p class="mb-4 text-justify">
+                        To integrate the Kalman Filter on the robot, I call the filter’s prediction and update steps whenever a new ToF reading arrives. 
+                        I installed the <strong>BasicLinearAlgebra</strong> library for matrix operations, and in the Arduino <code>setup()</code>, 
+                        I initialize the key parameters for the Kalman Filter, 
+                        including <code>A<sub>d</sub></code>, <code>B<sub>d</sub></code>, <code>C</code>, <code>Σ<sub>u</sub></code>, 
+                        and <code>Σ<sub>z</sub></code>. In the Arduino <code>loop()</code>, if <code>distanceSensor1.checkForDataReady()</code> is true, 
+                        I read the sensor’s distance in millimeters into <code>tof_reading</code>, then scale the value of the current motor PWM command by 255 
+                        to get a normalized input <em>u ∈ [0,1]</em> (not absolute value since my current setup is negative motor is moving towards wall). I call <code>kalman_update(u, z)</code>, where <em>z</em> is the ToF measurement, 
+                        which updates both the Kalman Filter state (<code>kf_state</code>) and its covariance (<code>Sigma</code>).
+                        </p>
+                        <img src="assets/img/portfolio/Lab7/image14.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <img src="assets/img/portfolio/Lab7/image13.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+
+                        <p class="mb-4 text-justify">
+                        After the filter updates the state, the <code>runPIDIteration()</code> function is executed if PID control is active. 
+                        Instead of using raw ToF data, the PID now reads the estimated position from the Kalman Filter (<code>kf_state(0,0)</code>). 
+                        In the Jupyter notebook, I use <code>SET_PID_GAINS</code> and <code>START_PID_CONTROL</code> to initiate the PID loop for a specified duration 
+                        (3 seconds in the example), and <code>GET_PID_DATA</code> to retrieve the logged data from the Artemis. 
+                        The Python callback <code>pid_notification_handler</code> then parses each incoming message into arrays for time, error, output, raw ToF, 
+                        Kalman Filter distance, and motor PWM. Then I slightly tune the PID gains to achieve a stable response.
+                        </p>    
+                        <img src="assets/img/portfolio/Lab7/image20.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <img src="assets/img/portfolio/Lab7/image7.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <p>
+                        By comparing the red (raw ToF) and blue (KF) lines in the first plot, 
+                        I can see that the Kalman Filter smoothly tracks the robot’s distance. 
+                        The second and third plots show how the PID error evolves over time and how the motor PWM signal adjusts accordingly, 
+                        confirming that the filter-based control loop is functioning as intended.
+                        </p>
+                        <img src="assets/img/portfolio/Lab7/image3.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <p>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" 
+                                        src="https://www.youtube.com/embed/C-PUz5WofW8" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        <div class="empty-line"></div>
+                        And if we observe the log data from the Artemis (refer to Lab 5 Section 4), we can see that the PID control loop frequency (~100 Hz) is indeed faster than the ToF sensor & Kalman Filter (~10 Hz), which leads to the next section's update.
+                        </p>
+                    </div>
+                    </div>
+
+                    <!-- 6. Kalman Filter Speed Up -->
+                    <div class="row justify-content-center">
+                      <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">6. Kalman Filter Speed Up</h3>
+                        <p class="mb-4 text-justify">
+                          To further enhance the responsiveness of the system, the Kalman Filter was modified to perform prediction steps continuously at a high frequency, 
+                          even when new ToF sensor data is not available. On the Arduino side, the main loop now calls the <code>kalman_predict(u)</code> function every 5 ms 
+                          (i.e., at a frequency of about 200 Hz), which is significantly faster than the ToF sensor update rate of 10 Hz and matches the 
+                          PID loop frequency of roughly 150 Hz. And note that the <code>A<sub>d</sub></code>, <code>B<sub>d</sub></code> matrices are updated to reflect the new prediction frequency.
+                        </p>
+                        <p class="mb-4 text-justify">
+                          In the updated code, a global variable <code>lastPredict</code> tracks the last prediction time. Within the loop, 
+                          the code checks if the elapsed time since the last prediction exceeds 5 ms (<code>PREDICT_INTERVAL_MS</code>). 
+                          If so, it retrieves the current motor command (scaled to a normalized input between 0 and 1) and calls <code>kalman_predict(u)</code> 
+                          to move the state estimate forward using the system dynamics and process noise. This continuous prediction ensures that even in the absence of 
+                          a new ToF measurement, the Kalman Filter maintains an up-to-date estimate of the robot's position and velocity.
+                        </p>
+                        <p class="mb-4 text-justify">
+                          Additionally, when new ToF data is received via <code>distanceSensor1.checkForDataReady()</code>, the <code>kalman_update(z)</code> function is invoked. 
+                          This update step corrects the predicted state using the fresh sensor measurement, thereby refining the state estimate. 
+                          By decoupling the prediction and update steps and running predictions at a high frequency (every 5 ms), 
+                          the system effectively bridges the gap between the slow ToF updates and the faster PID control loop. 
+                          This results in a smoother and more precise control. The following code snippets illustrate this implementation:
+                        </p>
+                        <img src="assets/img/portfolio/Lab7/image21.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <img src="assets/img/portfolio/Lab7/image22.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+
+                        <p class="mb-4 text-justify">
+                           Now I cannot directly set the <code>variance of the process noise</code> to <code>15<sup>2</sup> / Δt</code> since this case <code>variance of the process noise</code> will become <code>15<sup>2</sup> / 0.05</code> (4500), which is too large.
+                           By creating a new case <code>SET_KF_PARAMETERS</code>, I can adjust the Kalman Filter parameters in real-time for tunning. 
+                           After some tuning, my final parameters are as follows:
+                           <code>Kp=0.200, Ki=0.000, Kd=0.150, Setpoint=300.000, Sigma_position=20, Sigma_z = 10</code>. 
+
+                           And the following log array and figure shows the final results of the faster Kalman Filter integration on the robot and the video demonstrates the robot's performance of <code>set_point=50mm</code>.
+                           We can see that the KF predict distance (red) is align closely and updated at a higher frequency than the ToF sensor data (blue), 
+                           which allows the PID control loop to operate more smoothly and responsively.
+                        </p>
+                        <img src="assets/img/portfolio/Lab7/image24.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+
+                        <img src="assets/img/portfolio/Lab7/image23.png" alt="Lab 7" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/CJd9PwkaMQM" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 7. Conclusion -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">7. Conclusion</h3>
+                        <p class="mb-4 text-justify">
+                        The Kalman Filter implementation improved state estimation over linear extrapolation by continuously predicting the robot’s position at 5 ms intervals while updating with new ToF data. 
+                        This approach enabled smoother and more responsive PID control, allowing the robot to approach the wall with greater precision. 
+                        If I have more time, I would further tunded the PID & Kalman Filter parameters to optimize the prediction accuracy and explore additional sensor fusion techniques to enhance the robot’s performance.
+                        </p>
+                    </div>
+                    </div>
+
+                    
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div> <!-- /.container -->
+                </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+            </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- Lab 7 end -->
+  
         <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal7Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
