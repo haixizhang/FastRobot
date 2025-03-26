@@ -2630,7 +2630,7 @@
                           To further enhance the responsiveness of the system, the Kalman Filter was modified to perform prediction steps continuously at a high frequency, 
                           even when new ToF sensor data is not available. On the Arduino side, the main loop now calls the <code>kalman_predict(u)</code> function every 5 ms 
                           (i.e., at a frequency of about 200 Hz), which is significantly faster than the ToF sensor update rate of 10 Hz and matches the 
-                          PID loop frequency of roughly 150 Hz. And note that the <code>A<sub>d</sub></code>, <code>B<sub>d</sub></code> matrices are updated to reflect the new prediction frequency.
+                          PID loop frequency of roughly 140 Hz ( 400 messages within 3 seconds). And note that the <code>A<sub>d</sub></code>, <code>B<sub>d</sub></code> matrices are updated to reflect the new prediction frequency.
                         </p>
                         <p class="mb-4 text-justify">
                           In the updated code, a global variable <code>lastPredict</code> tracks the last prediction time. Within the loop, 
