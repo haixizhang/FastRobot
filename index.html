@@ -2926,6 +2926,7 @@
                         <p class="text-justify mb-4">
                         I also added wrap-around logic to ensure the yaw error stays within the <code>[-180, 180]</code> range, so angle wrapping would not cause calculation issues (as shown in 3.1 case 1). 
                         Given these adjustments, it is likely that the current PID gains for orientation control are still not tuned optimally. A more refined set of parameters might help the robot achieve a more accurate 180-degree turn.
+                        Or it could be that the friction between the wheels and the surface is not sufficient to allow for a perfect turn, causing the robot to slide slightly during the rotation.
 
                         </p>
                         <p class="text-justify mb-4">
