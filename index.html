@@ -148,14 +148,14 @@
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div><img class="img-fluid" src="assets/img/portfolio/Lab8/image4.png" alt="Lab 8: Drift Stunt" style="max-width: 320px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 8: Drift Stunt Control </h5>
-
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal8">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="New Image"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab9/image4.png" alt="Lab 9: Mapping" style="max-width: 320px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 9: Mapping </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -2984,36 +2984,278 @@
             </div> <!-- /.modal-dialog -->
         </div> <!-- /.modal -->
         <!-- End of Lab 8 Stunt Modal -->
-        
+             
+        <!-- Lab 9: Mapping Report - HTML Format -->
 
-                    
-        <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal8Label" aria-hidden="true">
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" role="dialog" aria-labelledby="portfolioModal8Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">New Image</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/image.svg" alt="New Image"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">New Image Description</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
+            <div class="modal-content">
+        
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline Styles -->
+                    <style>
+                    .text-justify { text-align: justify; }
+                    .empty-line { margin-bottom: 1.5rem; }
+                    </style>
+        
+                    <!-- Report Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 9: Mapping</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                        </div>
+                        <img src="assets/img/portfolio/Lab9/image4.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+
+                    </div>
+                    </div>
+        
+                    <!-- Section 1: Introduction -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                        <p class="text-justify mb-4">
+                        The objective of Lab 9 is to generate a 2‑D map of the lab by placing the robot at fixed locations and spinning it in place while a VL53L1X
+                        time‑of‑flight (ToF) sensor records range data. I chose orientation‑PID control, executing 15 steps of 24° each, because the Lab 6
+                        DMP‑based yaw controller already proved to deliver fast, accurate on‑axis turns with minimal overshoot. This method ensures consistent
+                        angular spacing between readings—critical for map accuracy—while avoiding the drift of open‑loop or raw‑gyro speed control.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Section 2: Methods -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Methods</h3>
+        
+                        <!-- 2.1 Hardware and Setup -->
+                        <h4 class="text-primary mb-2">2.1 Hardware and Setup</h4>
+                        <p class="text-justify mb-4">
+                        All experiments were conducted on a differential‑drive robot built around a SparkFun Artemis module. Orientation feedback comes
+                        from an ICM‑20948 IMU running its DMP unit over I²C, and range measurements are provided by a VL53L1X
+                        ToF sensor mounted on the front of the chassis. Motor commands drive two geared DC motors via PWM pins (6/7 and 13/14), allowing
+                        on‑axis spin by driving the motors in opposite directions. Bluetooth LE communication to a host PC uses the ArduinoBLE library;
+                        a Python/Jupyter client subscribes to notifications and issues commands like <code>START_MAPPING_SCAN</code> and
+                        <code>SEND_MAPPING_DATA</code>.
+                        </p>
+        
+                        <!-- 2.2 Control Algorithm -->
+                        <h4 class="text-primary mb-2">2.2 Control Algorithm</h4>
+                        <p class="text-justify mb-4">
+                        Incremental turns are implemented by combining the Lab 6 orientation PID loop (<code>runOrientationPIDIteration()</code>) with
+                        a simple state machine in <code>runMappingTask()</code>. The PID routine reads the current yaw via
+                        <code>getCurrentYawFromDMP()</code>, computes error against <code>orientSetpoint</code>, and outputs a spin command via
+                        <code>setSpinSpeed()</code>. Wrap‑around at ±180° is handled before the P, I, and D terms generate a PWM in ±255. On receipt
+                        of <code>START_MAPPING_SCAN</code>, <code>handle_command()</code> fills <code>referenceAngles[]</code> with
+                        <code>0°,24°,48°,…,336°</code>, sets <code>orientPIDActive</code> and <code>mappingActive</code> to true, and initializes
+                        <code>orientSetpoint</code>. In each loop, <code>runMappingTask()</code> advances the robot toward the target angle; once the
+                        absolute yaw error falls below 3°, it waits 200 ms (settle), samples ToF five times, logs the readings, and increments to the
+                        next angle.
+                        </p>
+                        <p class="text-justify mb-4">
+                        The following images show the predefined variables, loop function, mapping state machine function:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image15.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <img src="assets/img/portfolio/Lab9/image8.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image2.png" class="img-fluid" alt="Image 3">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image7.png" class="img-fluid" alt="Image 5">
                             </div>
                         </div>
+                        <div class="empty-line"></div>
+
+
+        
+                        <!-- 2.3 Data Logging and BLE Interface -->
+                        <h4 class="text-primary mb-2">2.3 Data Logging and BLE Interface</h4>
+                        <p class="text-justify mb-4">
+                        Three global arrays—<code>referenceAngles</code>, <code>measuredYaw</code>, and <code>tofMeasurements[step][5]</code>—store the
+                        scan. After settling at each angle, the code records <code>lastYaw</code> into <code>measuredYaw[mappingIndex]</code> and loops
+                        five times (50 ms delay) to sample <code>distanceSensor1.getDistance()</code> into
+                        <code>tofMeasurements[mappingIndex][0…4]</code>. When <code>mappingActive</code> becomes false, a “Mapping complete” message is
+                        printed. The BLE <code>SEND_MAPPING_DATA</code> handler iterates over all logged steps and sends lines of the form
+                        <code>Ref:&lt;angle&gt;|Yaw:&lt;measured&gt;|D0:&lt;r0&gt;|…|D4:&lt;r4&gt;</code> via
+                        <code>tx_characteristic_string.writeValue()</code>, allowing the Python client to reconstruct the full sweep.
+                        The following images show the two new commands <code>START_MAPPING_SCAN</code> and <code>SEND_MAPPING_DATA</code>:
+                        </p>
+                        <div class="empty-line"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image3.png" class="img-fluid" alt="Image 3">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image13.png" class="img-fluid" alt="Image 5">
+                            </div>
+                        </div>
+                        <div class="empty-line"></div>
+                        <p class="text-justify mb-4">
+                        And the following image is an example of the logging data received by the Python client, I then simply parse the data and store it in a list for later processing. 
+                        By analyzing the data, the yaw error is 5 degree, and the ToF distance's standard deviation is around 30 mm (worst case 190 mm), which is acceptable. 
+                        But there are a bit of outliers exists, which is likely due to the sensor noise or the robot's movement during the measurement.
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image5.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <p class="text-justify mb-4">
+                        To plot the polar plot, I used the following code to convert the ToF distance to global coordinates (the reason of + 90 degree is discussed in Section 3.3):
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image22.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+                    <div class="empty-line"></div>
+                    <!-- Section 3: Results -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. Results</h3>
+        
+                        <!-- 3.1 PID Performance -->
+                        <h4 class="text-primary mb-2">3.1 PID Performance</h4>
+                        <p class="text-justify mb-4">
+                        Using 24° steps with a 3° yaw threshold and five readings per orientation yields 15 steps (360°) and 75 measurements per scan.
+                        PID gains of <code>K<sub>p</sub>=10</code>, <code>K<sub>i</sub>=0.0025</code>, and <code>K<sub>d</sub>=10</code> produced smooth,
+                        responsive turns with minimal overshoot. The following video shows the robot performing a full 360° scan at (–5,–3) ft:
+                        </p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/yWRXO9zS9zI" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                        </iframe>
+                        </div>
+                        <div class="empty-line"></div>
+
+                        <p class="text-justify mb-4">
+                        A double-rotation test (720°) conducted at (-3, -2) demonstrates that the second sweep closely aligns with the first in most cases. While minor discrepancies are observed, they remain within acceptable limits and do not significantly impact the overall accuracy.
+                        </p>
+                        <image src="assets/img/portfolio/Lab9/image6.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+
+                        <!-- 3.2 ToF Distance and Polar Plot -->
+                        <h4 class="text-primary mb-2">3.2 ToF Distance and Polar Plot</h4>
+                        <p class="text-justify mb-4">
+                        Scans at (–3,–2), (5,3), (0,3), (5,–3), and (0,0) ft were performed CCW with the sensor facing +Y. Taking the median of five
+                        readings at each angle suppresses outliers. The resulting polar plots reveal clear wall reflections and consistent
+                        angular spacing. Except for the (0,0) scan, which shows a large number of outliers, the other scans are relatively clean. But due to time constraints,
+                        I did not have time to rescan (0,0) ft.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <img src="assets/img/portfolio/Lab9/image9.png" class="img-fluid rounded" style="max-width: 100%; height: 200px; object-fit: cover;" alt="Image 1">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <img src="assets/img/portfolio/Lab9/image11.png" class="img-fluid rounded" style="max-width: 100%; height: 200px; object-fit: cover;" alt="Image 2">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <img src="assets/img/portfolio/Lab9/image10.png" class="img-fluid rounded" style="max-width: 100%; height: 200px; object-fit: cover;" alt="Image 3">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <img src="assets/img/portfolio/Lab9/image12.png" class="img-fluid rounded" style="max-width: 100%; height: 200px; object-fit: cover;" alt="Image 4">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <img src="assets/img/portfolio/Lab9/image14.png" class="img-fluid rounded" style="max-width: 100%; height: 200px; object-fit: cover;" alt="Image 5">
+                            </div>
+                        </div>
+                        <div class="empty-line"></div>
+
+                        <!-- 3.3 Map Construction -->
+                        <h4 class="text-primary mb-2">3.3 Map Construction</h4>
+                        <p class="text-justify mb-4">
+                        We could either use the transformation matrix or use the rotation matrix to convert the ToF distance to global coordinates.
+                        The following image shows the 3*3 homogeneous transformation matrix:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image23.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <p class="text-justify mb-4">
+                        While the homogeneous matrix is more general and compact for chaining transformations, the separate rotation-plus-translation approach is simpler to implement and well-suited for 2D applications like this lab.
+                        Given rotation matrix <code>R(θ)</code> and IMU position <code>(x₀,y₀)</code>, the ToF distance <code>r</code> at angle θ, 
+                        each ToF ray was converted to global Cartesian via
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image16.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <p class="text-justify mb-4">
+                        where <code>R(θ)</code> is the rotation matrix:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image17.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+
+                        <p class="text-justify mb-4">
+                        Since the car is facing +Y, to align the IMU's 0° (robot forward) with the map's 0° (upward), we need to add 90° to the yaw before converting it to Cartesian coordinates.
+                        And the 0.06 m offset accounts for the distance from the car's center to the ToF sensor. 
+                        The following code shows how to convert the ToF distance to global coordinates:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image18.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                        <div class="empty-line"></div>
+                        <p class="text-justify mb-4">
+                        And the following image shows the resulting polar plot after converting the ToF distance to global coordinates:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image20.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+
+                        <p class="text-justify mb-4">
+                        We can observe that, except for the (0,0) ft scan (which was conducted hastily with a low battery), the other four scans are relatively clean, well-aligned, and provide consistent results.
+                        Some of the outliers may be due to the sensor noise or the robot's movement during the measurement. I could add a longer settle time to reduce the noise, and also by using a smaller step size, I could get a more accurate result.
+                        And the center part of the map is not very accurate, which is likely due I am using ToF short range mode, which is not very accurate for long distance.
+                        <div class="empty-line"></div>
+                        The resulting points were then converted to line segments by estimation.
+                        Merging all five scan clouds reveals the room outline and two interior obstacles.
+                        The following images show the line-based map (plotted with the start/end point lists) and the real environment (every tile is 1 ft x 1 ft): 
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image4.png" alt="Lab 9" class="img-fluid" style="max-width:100%; height:auto;">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab9/image19.jpg" alt="Lab 9" class="img-fluid" style="max-width:100%; height:auto;">
+                            </div>
+                        </div>
+                        
+                        <p class="text-justify mb-4">
+                        The final line segments are encoded as start/end point lists for the simulator:
+                        </p>
+                        <img src="assets/img/portfolio/Lab9/image21.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
+                    </div>
+                    </div>
+                    <!-- Section 4: Conclusion -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">4. Conclusion</h3>
+                    <p class="text-justify mb-4"> 
+                    This lab successfully demonstrated how orientation-PID control, combined with ToF sensing and yaw-aware transformation, enables accurate 2D mapping of 
+                    an indoor environment. By executing 15 evenly spaced turns and collecting multiple range readings per angle, the robot was able to produce clean and 
+                    consistent point clouds from various fixed positions. A 90° yaw offset was added to reconcile the IMU’s forward-facing reference with the global 
+                    map’s upward convention, and a 6 cm offset corrected for the sensor’s placement ahead of the pivot. After transforming each scan to global coordinates, 
+                    a composite map was built and approximated with line segments for use in future localization and navigation tasks. Minor noise and outliers were 
+                    observed—especially in rushed or low-battery conditions—but overall scan-to-scan alignment was strong, validating the effectiveness of the PID 
+                    orientation control and mapping pipeline. 
+                    </p>
+                    </div>
+                    </div>
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div>  <!-- /.container -->
+                </div>  <!-- /.modal-body -->
+            </div>  <!-- /.modal-content -->
+            </div>  <!-- /.modal-dialog -->
+        </div>  <!-- /.modal -->
+        <!-- End of Lab 9 Mapping Modal -->
+  
         <div class="portfolio-modal modal fade" id="portfolioModal9" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal9Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
