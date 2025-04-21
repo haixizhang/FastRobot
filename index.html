@@ -3106,7 +3106,7 @@
                         <div class="empty-line"></div>
                         <p class="text-justify mb-4">
                         And the following image is an example of the logging data received by the Python client, I then simply parse the data and store it in a list for later processing. 
-                        By analyzing the data, the yaw error is 5 degree, and the ToF distance's standard deviation is around 30 mm (worst case 190 mm), which is acceptable. 
+                        By analyzing the data, the mean of yaw error is 2.5 degree, and the ToF distance's standard deviation is around 30 mm (worst case 190 mm), which is acceptable. 
                         But there are a bit of outliers exists, which is likely due to the sensor noise or the robot's movement during the measurement.
                         </p>
                         <img src="assets/img/portfolio/Lab9/image5.png" alt="Lab 9" class="img-fluid" style="max-width:480px; height:auto;">
@@ -3127,7 +3127,12 @@
                         <p class="text-justify mb-4">
                         Using 24° steps with a 3° yaw threshold and five readings per orientation yields 15 steps (360°) and 75 measurements per scan.
                         PID gains of <code>K<sub>p</sub>=10</code>, <code>K<sub>i</sub>=0.0025</code>, and <code>K<sub>d</sub>=10</code> produced smooth,
-                        responsive turns with minimal overshoot. The following video shows the robot performing a full 360° scan at (–5,–3) ft:
+                        responsive turns with minimal overshoot. 
+                        Given that my robot performs consistent on-axis turns and the DMP reliably mitigates yaw drift, the average angular error remains around 2.5°. 
+                        Combined with ToF distance noise—typically 30 mm and up to 190 mm in worst cases—the expected maximum spatial error is approximately 
+                        2.5 cm at a 4 m sensing range, which is sufficient for room-scale mapping.
+
+                        The following video shows the robot performing a full 360° scan at (–5,–3) ft:
                         </p>
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" 
