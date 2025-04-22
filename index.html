@@ -162,7 +162,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal9">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="New Image"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab10/image12.png" alt="Lab 10: Localization" style="max-width: 320px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 10: Localization (SIM) </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -3261,33 +3262,221 @@
         </div>  <!-- /.modal -->
         <!-- End of Lab 9 Mapping Modal -->
   
-        <div class="portfolio-modal modal fade" id="portfolioModal9" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal9Label" aria-hidden="true">
+        <!-- Lab 10: Localization Report - HTML Format -->
+
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal9" tabindex="-1" role="dialog" aria-labelledby="portfolioModal9Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">New Image</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/image.svg" alt="New Image"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">New Image Description</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
+            <div class="modal-content">
+        
+                <!-- Close Button -->
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+        
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                <div class="container">
+        
+                    <!-- Inline Styles -->
+                    <style>
+                    .text-justify { text-align: justify; }
+                    .empty-line { margin-bottom: 1.5rem; }
+                    </style>
+        
+                    <!-- Report Title and Header -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="portfolio-modal-title text-center mb-0">Lab 10: Localization using Bayes Filter(in simulation)</h2>
+                        <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                        </div>
+                    </div>
+                    </div>
+        
+                    <!-- Section 1: Introduction -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                        <p class="text-justify mb-4">
+                        Precise localization is essential for any mobile robot seeking to navigate or interact with its surroundings. 
+                        Odometry alone—relying on wheel encoders and inertial sensors—inevitably accumulates error, causing the estimated pose to drift away from reality. 
+                        The Bayes filter offers a principled remedy by maintaining a probability distribution over possible robot poses and repeatedly refining that 
+                        distribution through two complementary phases. In the prediction phase, the algorithm propagates the prior belief according to an odometry motion 
+                        model, accounting for control noise. In the subsequent correction phase, it incorporates laser‐range measurements via a Gaussian sensor model to 
+                        concentrate probability around the most plausible states. This lab implements a grid‐based Bayes filter in simulation, demonstrating its 
+                        effectiveness at tracking the robot’s true trajectory within a discretized two‐dimensional environment.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Section 2: Pre‑lab -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">2. Pre‑lab</h3>
+        
+                        <!-- 2.1 Environment Setup -->
+                        <h4 class="text-primary mb-2">2.1 Environment Setup</h4>
+                        <p class="text-justify mb-4">
+                        This simulation is run in a Python 3.10 virtual environment. Within this environment, the core libraries—NumPy, PyGame, PyQt6, PyQtGraph, PyYAML, 
+                        IPyWidgets, and Colorama—are installed via <code>pip</code>. A quick <code>python -m tkinter</code> check confirms that the GUI toolkit is available. Next, the Box2D physics engine is acquired as a pre‑built wheel matching the Python version and operating system. Once installed, its presence is verified by importing <code>Box2D</code> in a Python shell and printing its version. Finally, the FastRobots simulation base code is cloned from the course repository.
+                        </p>
+        
+                        <!-- 2.2 Bayes Filter Background -->
+                        <h4 class="text-primary mb-2">2.2 Bayes Filter Background</h4>
+                        <p class="text-justify mb-4">
+                        The Bayes filter provides a recursive, probabilistic framework for estimating a robot’s pose by combining control inputs and sensor measurements. As shown in Figure 1, the algorithm maintains a belief distribution <code>bel(x<sub>t</sub>)</code> over all discrete states <code>x<sub>t</sub></code> and alternates between two core operations. In the prediction (line 3), the prior belief <code>bel(x<sub>t−1</sub>)</code> is propagated through the motion model <code>p(x<sub>t</sub> | u<sub>t</sub>, x<sub>t−1</sub>)</code>, yielding an unnormalized intermediate <code>&overline;bel(x<sub>t</sub>)</code>. In the update (line 4), this predicted belief is weighted by the measurement likelihood <code>p(z<sub>t</sub> | x<sub>t</sub>)</code> and renormalized by <code>η</code>, producing the posterior <code>bel(x<sub>t</sub>)</code>.
+                        </p>
+                        <p class="text-center mb-4">
+                        <img src="assets/img/portfolio/Lab10/image7.png" alt="Bayes Filter Algorithm" class="img-fluid" style="max-width:400px; height:auto;">
+                        </p>
+                        <p class="text-justify mb-4">
+                        In this lab, the continuous three‑dimensional state space (<code>x, y, θ</code>) is discretized into a 12×9×18 grid, corresponding to one‑foot spatial and 20° angular resolution. During each iteration, the robot’s odometry‑derived control (<code>u<sub>t</sub></code>) is applied in the prediction phase using a Gaussian‑noised motion model, and a 360° laser scan provides measurement data for the update phase via a Gaussian sensor model. By repeatedly executing these steps, the belief concentrates around the true pose, overcoming the unbounded drift inherent in raw odometry.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Section 3: Implementation -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">3. Implementation</h3>
+                        
+                        <!-- 3.1 compute_control -->
+                        <h4 class="text-primary mb-2">3.1 Compute Control</h4>
+                        <p class="text-justify mb-4">
+                        The <code>compute_control(current_pose, previous_pose)</code> function extracts the nominal motion <code>u</code> that carries the robot from <code>previous_pose = (x<sub>t−1</sub>, y<sub>t−1</sub>, θ<sub>t−1</sub>)</code> to <code>current_pose = (x<sub>t</sub>, y<sub>t</sub>, θ<sub>t</sub>)</code>. First, it computes the initial rotation  
+                        <br><code>δ<sub>rot1</sub> = atan2(y<sub>t</sub> − y<sub>t−1</sub>, x<sub>t</sub> − x<sub>t−1</sub>) − θ<sub>t−1</sub>,</code>  
+                        then the straight‑line translation  
+                        <br><code>δ<sub>trans</sub> = √[(x<sub>t</sub> − x<sub>t−1</sub>)² + (y<sub>t</sub> − y<sub>t−1</sub>)²],</code>  
+                        and finally the residual rotation  
+                        <br><code>δ<sub>rot2</sub> = θ<sub>t</sub> − θ<sub>t−1</sub> − δ<sub>rot1</sub>.</code>  
+                        All angular results are converted to degrees and passed through <code>normalize_angle</code> to ensure continuity across the ±180° boundary. By returning <code>(δ<sub>rot1</sub>, δ<sub>trans</sub>, δ<sub>rot2</sub>)</code>, this routine provides both the “actual” control experienced by the robot and a template for what the motion model will expect.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image11.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+        
+                        <!-- 3.2 Odometry Motion Model -->
+                        <h4 class="text-primary mb-2">3.2 Odometry Motion Model</h4>
+                        <img src="assets/img/portfolio/Lab10/image6.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+                        <p class="text-justify mb-4">
+                        The function <code>odom_motion_model(current_pose, previous_pose, u_expected)</code> evaluates the transition probability  
+                        <br><code>p(x<sub>t</sub> | x<sub>t−1</sub>, u<sub>t</sub>)</code>  
+                        under the rotational–translational–rotational schema. It calls <code>compute_control</code> to recover the actual control <code>u<sub>act</sub></code> and compares each component to the expected control <code>u<sub>exp</sub> = (δ<sub>rot1</sub><sup>e</sup>, δ<sub>trans</sub><sup>e</sup>, δ<sub>rot2</sub><sup>e</sup>)</code>, using zero‑mean Gaussians with standard deviations <code>odom_rot_sigma</code> and <code>odom_trans_sigma</code>. Because rotation and translation errors are independent, their likelihoods multiply:
+                        </p>
+                        <p class="text-center mb-4">
+                        <code>p = N(δ<sub>rot1</sub><sup>act</sup> − δ<sub>rot1</sub><sup>e</sup>; 0, σ<sub>rot</sub>) × N(δ<sub>trans</sub><sup>act</sup> − δ<sub>trans</sub><sup>e</sup>; 0, σ<sub>trans</sub>) × N(δ<sub>rot2</sub><sup>act</sup> − δ<sub>rot2</sub><sup>e</sup>; 0, σ<sub>rot</sub>)</code>
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image9.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                        <!-- 3.3 Prediction Step -->
+                        <h4 class="text-primary mb-2">3.3 Prediction Step</h4>
+                        <p class="text-justify mb-4">
+                        In <code>prediction_step(current_odometry, previous_odometry)</code>, the algorithm first computes the expected control <code>u<sub>t</sub></code> via <code>compute_control</code>. It then clears the predicted belief array <code>bel_bar</code> and iterates over all significant prior states <code>(x<sub>t−1</sub>, y<sub>t−1</sub>, θ<sub>t−1</sub>)</code> for which the belief exceeds the threshold <code>10<sup>−4</sup></code>. For each such state, it considers every successor cell <code>(x<sub>t</sub>, y<sub>t</sub>, θ<sub>t</sub>)</code>, converts indices into real‑world poses via <code>mapper.from_map</code>, and accumulates:
+                        <br><code>&overline;bel(x<sub>t</sub>) += bel(x<sub>t−1</sub>) × p(x<sub>t</sub> | x<sub>t−1</sub>, u<sub>t</sub>)</code>  
+                        Finally, it normalizes <code>bel_bar</code> so that its sum equals one.
+                        </p>
+                        <p class="text-justify mb-4">
+                        The threshold <code>10<sup>−4</sup></code> balances efficiency against accuracy: raising it skips unlikely transitions and speeds computation, while lowering it preserves precision at a cost in runtime. This filtering is critical for a 1,944‑cell grid. Although sensor noise parameters remain fixed here, they too could be tuned when transitioning to real‑world experiments.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image8.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                        <!-- 3.4 Sensor Model -->
+                        <h4 class="text-primary mb-2">3.4 Sensor Model</h4>
+                        <p class="text-justify mb-4">
+                        The <code>sensor_model(actual_ranges, expected_ranges)</code> routine computes, for each of the 18 laser beams, the likelihood  
+                        <br><code>p(z<sub>t</sub><sup>k</sup> | x<sub>t</sub>) = N(z<sub>t</sub><sup>k</sup> − ẑ<sup>k</sup>; 0, σ<sub>sensor</sub>)</code>,  
+                        where <code>actual_ranges[k]</code> is the measured value and <code>expected_ranges[k]</code> is the precomputed map distance. The function returns an 18‑element array of per‑beam probabilities, relying on independence to later multiply them.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image4.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                        <!-- 3.5 Update Step -->
+                        <h4 class="text-primary mb-2">3.5 Update Step</h4>
+                        <p class="text-justify mb-4">
+                        In <code>update_step()</code>, the posterior belief is formed by weighting the predicted belief with the measurement likelihoods. For each grid cell the code retrieves <code>bel_bar[x,y,θ]</code>, obtains the expected scan via <code>mapper.get_views(x,y,θ)</code>, calls <code>sensor_model</code> to get beam likelihoods, and multiplies them:
+                        <br><code>bel(x<sub>t</sub>) = bel_bar(x<sub>t</sub>) × ∏<sub>k=1..18</sub> p(z<sub>t</sub><sup>k</sup> | x<sub>t</sub>)</code>.  
+                        A final normalization ensures total probability sums to one. By separating prediction and update loops, the implementation stays transparent and efficient.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image3.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                    </div>
+                    </div>
+        
+                    <!-- Section 4: Results -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">4. Results</h3>
+
+                        <!-- 4.1 Notebook‑Driven Evaluation -->
+                        <h4 class="text-primary mb-2">4.1 Notebook‑Driven Evaluation of Filter Steps</h4>
+                        <p class="text-justify mb-4">
+                        To inspect and visualize the Bayes filter’s behavior, two notebook snippets are employed. The first isolates the measurement update on a stationary robot: the simulator and plotter are reset, a uniform belief is initialized, the robot executes a 360° scan (<code>get_observation_data()</code>), and <code>update_step()</code> applies the observation to the prior. The call to <code>loc.print_update_stats(plot_data=True)</code> prints summary metrics—such as entropy reduction—and overlays the posterior belief on the live plot. Finally, ground truth and odometry are drawn in green and red to illustrate how sharply a single update narrows the location estimate.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image2.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                        <p class="text-justify mb-4">
+                        The second snippet runs the full predict–observe–update cycle over a predefined trajectory via a <code>Trajectory</code> object. At each time step the robot advances (<code>execute_time_step</code>), the <code>prediction_step()</code> propagates belief (metrics printed via <code>loc.print_prediction_stats</code>), a fresh 360° scan is performed, and <code>update_step()</code> corrects the belief (printed via <code>loc.print_update_stats</code>). This dual printing reveals how uncertainty first grows during motion and then collapses during sensing.
+                        </p>
+                        <img src="assets/img/portfolio/Lab10/image1.png" alt="Lab 10" class="img-fluid" style="max-width:400px; height:auto;">
+
+                        <!-- 4.2 Visualization and Log Analysis -->
+                        <h4 class="text-primary mb-2">4.2 Visualization and Log Analysis</h4>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="https://www.youtube.com/embed/YpcNOzFQSCI" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                        <div class="empty-line"></div>
+                        <p class="text-justify mb-4">
+                        After running the full cycle, the trajectory plot in following figure vividly illustrates the contrast between pure odometry and Bayes‑filter localization. The red curve (odometry) steadily diverges from reality, while the blue curve (filter belief) remains tightly interwoven with the green ground truth. Despite starting from a uniform belief, the filter rapidly concentrates probability around the correct poses as each 360° scan supplies fresh measurement information.
+                        </p>
+                        <p class="text-center mb-4">
+                        <img src="assets/img/portfolio/Lab10/image12.png" alt="Trajectory Plotter" class="img-fluid" style="max-width:600px; height:auto;">
+                        <div><em>Trajectory comparison: red=odometry, green=ground truth, blue=Bayes filter belief.</em></div>
+                        </p>
+                        <p class="text-justify mb-4">
+                        The notebook’s log outputs detailed “Prediction Stats” and “Update Stats” at each time step, reporting the true-grid index, most-likely prior index with its probability, the prior’s positional and angular error, and the final posterior index and error. These entries demonstrate that prediction alone spreads the belief and incurs substantial error, whereas update collapses the distribution onto the true state, effectively correcting both translational and rotational deviations. Additionally, memory reuse and in-place array operations help maintain performance throughout the trajectory.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab10/image5.png" class="img-fluid" alt="Image 1">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="assets/img/portfolio/Lab10/image10.png" class="img-fluid" alt="Image 2">
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+        
+                    <!-- Section 5: Conclusion -->
+                    <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h3 class="text-center text-primary mb-3">5. Conclusion</h3>
+                        <p class="text-justify mb-4">
+                        Implementing the grid‐based Bayes filter in simulation demonstrated that probabilistic fusion of odometry and laser measurements yields a pose estimate that remains closely aligned with ground truth, even as raw odometry drifts. The prediction and update steps respectively model control uncertainty and effectively correct it using sensor data, rapidly concentrating belief onto the true state. Extending this framework to the physical robot and exploring finer discretization or continuous representations will further improve localization accuracy.
+                        </p>
+                    </div>
+                    </div>
+        
+                    <!-- Close Button -->
+                    <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                        </button>
+                    </div>
+                    </div>
+        
+                </div>  <!-- /.container -->
+                </div>  <!-- /.modal-body -->
+            </div>  <!-- /.modal-content -->
+            </div>  <!-- /.modal-dialog -->
+        </div>  <!-- /.modal -->
+        <!-- End of Lab 10 Localization Modal -->
+    
         <div class="portfolio-modal modal fade" id="portfolioModal10" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal10Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
