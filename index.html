@@ -169,8 +169,8 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal10">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="New Image"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Lab11/image6.png" alt="Lab 11" style="max-width: 320px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 11: Localization (REAL) </h5>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -3477,33 +3477,221 @@
         </div>  <!-- /.modal -->
         <!-- End of Lab 10 Localization Modal -->
     
-        <div class="portfolio-modal modal fade" id="portfolioModal10" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal10Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">New Image</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/image.svg" alt="New Image"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">New Image Description</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Lab 11: Real‑Robot Localization Report – HTML Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal10" tabindex="-1"
+            role="dialog" aria-labelledby="portfolioModal11Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+
+            <!-- Close Button -->
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+            </button>
+
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <div class="container">
+
+                <!-- Inline helpers -->
+                <style>
+                    .text-justify { text-align: justify; }
+                    .empty-line   { margin-bottom: 1.5rem; }
+                </style>
+
+                <!-- Title -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h2 class="portfolio-modal-title text-center mb-0">
+                        Lab 11: Localization on the Real Robot
+                    </h2>
+                    <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
                     </div>
                 </div>
-            </div>
-        </div>
+
+                <!-- 1 Introduction -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                    <p class="text-justify mb-4">
+                        This experiment investigates whether a Bayes‑filter localisation pipeline that performs well
+                        in simulation can place a real “fast robot” on the course map with comparable accuracy.
+                        Unlike the virtual robot, the physical platform suffers from unmodelled wheel slip and timing
+                        jitter, making odometry unreliable; therefore the filter is run in update‑only mode and
+                        relies entirely on a single 360&nbsp;° range scan from a VL53L1X ToF sensor.  During the scan
+                        the robot rotates through eighteen 20‑degree set‑points under a PID‑controlled yaw loop, logs
+                        five distance samples at each heading, and transmits the median values to a Python host.  The
+                        host converts ranges to metres, wraps bearings to (–180 °, 180 °], and feeds the observation
+                        vector to the grid‑based Bayes filter.  Localisation accuracy is assessed at four pre‑marked
+                        floor tiles.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- 2 Pre‑lab -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">2. Pre‑lab</h3>
+                    <p class="text-justify mb-4">
+                        Before deploying to the real robot, the Bayes filter implementation was verified in simulation
+                        using <code>lab11_sim.ipynb</code>.  Although prediction and update run reliably in the virtual
+                        world, odometry still drifts.  The figure below shows the map bounds (white), ground‑truth
+                        trajectory (green), odometry (red) and belief (blue); the divergence confirms the need for
+                        robust sensor updates.
+                    </p>
+                    <p class="text-center mb-4">
+                        <img src="assets/img/portfolio/Lab11/image6.png" alt="Simulation Result" class="img-fluid" style="max-width:500px;">
+                    </p>
+                    <p class="text-justify mb-4">
+                        The physical stack was prepared by copying <code>lab11_real.ipynb</code>,
+                        <code>localization_extras.py</code> and the minimal BLE helpers
+                        (<code>base_ble.py</code>, <code>ble.py</code>, <code>connection.yaml</code>,
+                        <code>cmd_types.py</code>) from the course github repository <a href="https://github.com/FastRobotsCornell/Localization-real-code" target="_blank">github repository</a>.  
+                        Firmware reuses the Lab 9 mapping PID; the host triggers an
+                        18‑step scan with <code>START_MAPPING_SCAN</code> and retrieves data via
+                        <code>SEND_MAPPING_DATA</code>.  The observation model therefore matches the
+                        <code>observations_count = 18</code> entry in <code>world.yaml</code>.  An empirically tuned
+                        sensor noise of 0.10 m was used for all trials. Also, to make the distance values more robust, 
+                        I collect five samples at each heading and take the median value of those, and the total settle time is 1000 ms (200ms for each reading).
+                    </p>
+                    </div>
+                </div>
+
+                <!-- 3 Implementation -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">3. Implementation</h3>
+
+                    <p class="text-justify mb-4">
+                        The localisation pipeline spans two layers: firmware running on the Artemis board and a Python host notebook that drives the Bayes filter.
+
+                    </p>
+                    <h4 class="text-primary mb-2">3.1 Arduino Side</h4>
+
+                    <p class="text-justify mb-4">
+                        The orientation‑PID logic and mapping task developed in&nbsp;Lab&nbsp;9 were kept intact. When the host transmits
+                        <code>START_MAPPING_SCAN&nbsp;Kp|Ki|Kd</code> the robot enables its yaw PID
+                        (gains&nbsp;5 / 0.0025 / 25) and sweeps through eighteen evenly‑spaced headings,
+                        pausing&nbsp;200&nbsp;ms at each angle to sample the front VL53L1X sensor five times.
+                        After the sweep the host issues <code>SEND_MAPPING_DATA</code>; the firmware then streams
+                        eighteen lines containing the reference angle, measured yaw and the five raw
+                        ToF readings. To maximise accuracy each angle receives five distance samples
+                        followed by a one‑second settling period.
+                    </pre>
+                    <h4 class="text-primary mb-2">3.2 Jupyter Side</h4>
+                    <p class="text-justify mb-4">
+                        The class <code>RealRobot</code> orchestrates one complete observation cycle.
+                        Its <code>perform_observation_loop()</code> method registers a BLE notification
+                        handler, triggers the scan with <code>START_MAPPING_SCAN</code>, waits thirty‑five
+                        seconds for rotation to finish, and then requests the logged data.  Each
+                        notification string is parsed into three parallel lists — reference angles,
+                        IMU yaw values and five‑sample distance arrays.  After all eighteen packets
+                        arrive the routine converts raw millimetres to metres (median of five samples
+                        suppresses outliers) and unwraps bearings to the interval (–180°, 180°] so they
+                        match the precached sensor model.  It returns two column vectors (ranges and
+                        bearings) that <code>loc.update_step()</code> consumes.  Because virtual and real robots
+                        share the same grid map and <em>observations_count</em> parameter, no further changes
+                        to the Bayes‑filter code were required.
+                    </p>
+                    <img src="assets/img/portfolio/Lab11/image5.png" alt="Simulation Result" class="img-fluid" style="max-width:500px;">
+                    <img src="assets/img/portfolio/Lab11/image4.png" alt="Simulation Result" class="img-fluid" style="max-width:500px;">
+                    <img src="assets/img/portfolio/Lab11/image8.png" alt="Simulation Result" class="img-fluid" style="max-width:500px;">
+
+                    <p class="text-justify mb-4">
+                        The ToF scan depends on BLE notifications and timed delays, so the observation
+                        loop must yield control while hardware events occur.  Accordingly,
+                        <code>RealRobot.perform_observation_loop()</code> is declared <code>async</code> and uses
+                        <code>await&nbsp;asyncio.sleep(...)</code> rather than blocking the Python kernel.
+                        <code>Localization.get_observation_data()</code> is also marked <code>async</code> and awaits the
+                        robot coroutine; the notebook cell calls it with <code>await&nbsp;loc.get_observation_data()</code>.
+                        These three changes keep Jupyter’s event loop responsive while the robot spins,
+                        notifications stream in, and the host pauses only where necessary.  Using
+                        <code>asyncio.run(...)</code> inside synchronous code would block the loop and risk
+                        deadlocks; the async/await pattern is therefore the correct non‑blocking
+                        approach for BLE‑driven data collection.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- 4 Results -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">4. Results</h3>
+
+                    <p class="text-justify mb-3">
+                        The robot was manually placed at each of the four marked locations on the arena floor and instructed to perform a full 360° observation loop. After collecting 18 ToF readings, the update step of the Bayes filter was executed to estimate the robot's pose. The ground truth for each test was known in advance and marked visually using the tile layout, while the estimated belief was computed using only the ToF data and a uniform prior.
+                    </p>
+
+                    <div class="d-flex flex-wrap justify-content-between">
+                        <div class="p-2" style="flex: 1 1 48%;">
+                          <img src="assets/img/portfolio/Lab11/image3.png" class="img-fluid" style="max-height: 300px; object-fit: contain;" alt="Pose 1">
+                          <div class="small text-center mt-2">Pose 1 (–3 ft, –2 ft)</div>
+                        </div>
+                        <div class="p-2" style="flex: 1 1 48%;">
+                          <img src="assets/img/portfolio/Lab11/image7.png" class="img-fluid" style="max-height: 300px; object-fit: contain;" alt="Pose 2">
+                          <div class="small text-center mt-2">Pose 2 (0 ft, 3 ft)</div>
+                        </div>
+                        <div class="p-2" style="flex: 1 1 48%;">
+                          <img src="assets/img/portfolio/Lab11/image2.png" class="img-fluid" style="max-height: 300px; object-fit: contain;" alt="Pose 3">
+                          <div class="small text-center mt-2">Pose 3 (5 ft, –3 ft)</div>
+                        </div>
+                        <div class="p-2" style="flex: 1 1 48%;">
+                          <img src="assets/img/portfolio/Lab11/image1.png" class="img-fluid" style="max-height: 280px; object-fit: contain;" alt="Pose 4">
+                          <div class="small text-center mt-2">Pose 4 (5 ft, 3 ft)</div>
+                        </div>
+                      </div>
+                      
+
+                    <p class="text-justify mb-4">
+                        The plots show that while the belief often falls near the correct region, it rarely lands exactly on the ground truth location. 
+                        The localization was most successful when the robot was in map regions with strong geometric features or near walls, and slightly worse in more open or symmetric areas.
+                        It is worth noting that the polar observation plots—visualizing ToF range data against expected ray casts—suggested close alignment between measured and expected sensor returns. 
+                        As an example, the following figure shows the polar plot at (0,3)ft.
+                    </p>   
+                        <img src="assets/img/portfolio/Lab11/image9.png" class="img-fluid" style="max-width:500px">
+                    <p class="text-justify mb-4">
+                        This confirms that the forward sensor model is functioning well and that discrepancies are more likely due to noise, resolution limits in the belief grid, or rotational drift during data capture. 
+                        Overall, the Bayes filter was able to localize the robot to within a reasonable neighborhood of the true pose using only a single scan.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- 5 Conclusion -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">5. Conclusion</h3>
+                    <p class="text-justify mb-4">
+                        With only a single 360° ToF scan, the grid‑based Bayes filter localised the real robot to
+                        within roughly one tile of ground truth at all four test poses.  The experiment validates the
+                        simulation results and demonstrates that a purely sensor‑driven update step is sufficient for
+                        coarse localisation on this platform.  Future work may incldue fusing a
+                        second sensor to double angular resolution, and explore particle‑filter methods for
+                        continuous pose estimates.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- Close Button -->
+                <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                    </button>
+                    </div>
+                </div>
+
+                </div> <!-- /.container -->
+            </div> <!-- /.modal-body -->
+            </div> <!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+        <!-- End Lab 11 Modal -->
+
+
+
         <div class="portfolio-modal modal fade" id="portfolioModal11" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal11Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
