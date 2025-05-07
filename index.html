@@ -3588,8 +3588,9 @@
                         handler, triggers the scan with <code>START_MAPPING_SCAN</code>, waits thirty‑five
                         seconds for rotation to finish, and then requests the logged data.  Each
                         notification string is parsed into three parallel lists — reference angles,
-                        IMU yaw values and five‑sample distance arrays.  After all eighteen packets
-                        arrive the routine converts raw millimetres to metres (median of five samples
+                        IMU yaw values and five‑sample distance arrays.
+                        And for the five distance samples, the median value is taken to suppress outliers. But in practice, the five distance values are already very stable.
+                        After all eighteen packets arrive the routine converts raw millimetres to metres (median of five samples
                         suppresses outliers) and unwraps bearings to the interval (–180°, 180°] so they
                         match the precached sensor model.  It returns two column vectors (ranges and
                         bearings) that <code>loc.update_step()</code> consumes.  Because virtual and real robots
@@ -3613,6 +3614,17 @@
                         deadlocks; the async/await pattern is therefore the correct non‑blocking
                         approach for BLE‑driven data collection.
                     </p>
+
+                    <p class="text-justify mb-4">
+                        The following video demonstrates the real robot performing a full 360° scan. Note that in the video, my ToF sensor is facing North (+Y), which is incorrect and should be facing East (+X) on the map. And counter clockwise rotation is already used in the video, which is correct.
+                        Thanks to the Teaching Assistant Hang Gao's observation, I noticed this mistake and corrected it in my work, but I did not re-record the video.
+                    </p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" 
+                                src="https://www.youtube.com/embed/XmhsjrUBP_4" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
                     </div>
                 </div>
 
@@ -3654,7 +3666,7 @@
                         <img src="assets/img/portfolio/Lab11/image9.png" class="img-fluid" style="max-width:500px">
                     <p class="text-justify mb-4">
                         This confirms that the forward sensor model is functioning well and that discrepancies are more likely due to noise, resolution limits in the belief grid, or rotational drift during data capture. 
-                        Overall, the Bayes filter was able to localize the robot to within a reasonable neighborhood of the true pose using only a single scan.
+                        Overall, the Bayes filter was able to localize the robot to within a reasonable neighborhood of the true pose using a 360° turning scan.
                     </p>
                     </div>
                 </div>
