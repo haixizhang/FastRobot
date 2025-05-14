@@ -169,6 +169,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal10">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div><img class="img-fluid" src="assets/img/portfolio/Lab11/image6.png" alt="Lab 11" style="max-width: 320px; height: 210px;"/>
                             <h5 class="text-center mt-2">Lab 11: Localization (REAL) </h5>
                         </div>
@@ -177,7 +178,8 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal11">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="New Image"/>
+                                </div><img class="img-fluid" src="assets/img/portfolio/Lab12/simple.png" alt="Lab 11" style="max-width: 320px; height: 210px;"/>
+                            <h5 class="text-center mt-2">Lab 12: Path Planning and Execution</h5>
                         </div>
                     </div>
                 </div>
@@ -3702,33 +3704,285 @@
         </div>
         <!-- End Lab 11 Modal -->    
 
-        <div class="portfolio-modal modal fade" id="portfolioModal11" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal11Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">New Image</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/image.svg" alt="New Image"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">New Image Description</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Lab 12: Path-Planning & Execution Report – HTML Modal -->
+        <div class="portfolio-modal modal fade" id="portfolioModal11" tabindex="-1"
+            role="dialog" aria-labelledby="portfolioModal11Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+
+            <!-- Close Button -->
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+            </button>
+
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <div class="container">
+
+                <!-- Inline helpers -->
+                <style>
+                    .text-justify { text-align: justify; }
+                    .empty-line   { margin-bottom: 1.5rem; }
+                </style>
+
+                <!-- Title -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h2 class="portfolio-modal-title text-center mb-0">
+                        Lab 12: Path Planning & Execution on the Real Robot
+                    </h2>
+                    <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <img src="assets/img/portfolio/Lab12/ground.jpg" class="img-fluid" style="max-width:500px">
+
+                <!-- 1 Introduction -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">1. Introduction</h3>
+                    <p class="text-justify mb-4">
+                        In this final lab I set out to prove that the small differential-drive robot I built earlier in the
+                        semester can follow a prescribed route inside a known map. The specific task was to begin at grid
+                        coordinate (–4, –3), visit seven intermediate way-points, and stop at (0, 0) without any human
+                        intervention. Up to this point I had already equipped the platform with closed-loop motor control,
+                        a time-of-flight range sensor on the front bumper, a gyro-based yaw estimator, and a Bluetooth Low-Energy
+                        link to a Jupyter notebook. The missing piece was an execution layer that could translate the waypoint
+                        list into reliable motor commands, cope with sensor quirks, and finish the course quickly enough to be
+                        useful.
+                    </p>
+                    <p class="text-justify mb-4">
+                        Rather than implement a full global planner and continuous localisation, I chose a simpler
+                        “turn–go–turn” strategy driven by PID algorithms: first spin to the desired heading based on IMU PID control, then drive a
+                        straight segment based on ToF PID control, repeat. This approach plays to the strengths of my hardware—accurate yaw control and
+                        a forward range sensor—while avoiding the overhead of running a Bayes filter in real time. The work
+                        therefore focused on three things: mapping waypoint geometry into the robot’s IMU frame, tuning two PID
+                        controllers (orientation and distance), and scripting the motion sequence so it can run end-to-end with
+                        minimal wireless traffic.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- 2 Planning Strategy -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">2. Planning Strategy</h3>
+
+                    <h4 class="text-primary mb-2">2.1 What a full-stack solution would look like</h4>
+                    <p class="text-justify mb-4">
+                        My first idea was to close the loop completely: localise the robot at every step with a Bayes filter and
+                        plan the path accordingly. In that scheme I would maintain a belief distribution over all grid cells
+                        and update it each time the range sensor fired. Then I would have combined the waypoint coordinates with
+                        the current belief of the robot’s pose to work out the required rotation angle, and relied on the ToF
+                        reading to decide how far to drive.
+                    </p>
+
+                    <h4 class="text-primary mb-2">2.2 Why I chose an open-loop alternative</h4>
+                    <p class="text-justify mb-4">
+                        I abandoned that plan for three practical reasons.
+                    </p>
+                    <ul class="text-justify mb-4">
+                        <li><strong>Localization noise:</strong> In Lab 11, a sigle "noisy" ToF distances can cause the Bayes filter jumped to implausible cells even when most ToF readings appeared reasonable, making real-time closed-loop localization unreliable. Also, in section 5 I will discuss about why sometimes the ToF sensor provides small or nearly zero values in my setup</li>
+                        <li><strong>Computation time:</strong> Each predict-update cycle plus A* re-planning took about 55 seconds on my laptop, which is much slower than the robot’s four-second PID moves.</li>
+                        <li><strong>Validated building blocks:</strong> Previous labs demonstrated that my yaw PID holds within ±2° and the ToF PID settles within 10 mm, so a pre-computed script already meets the required accuracy. Given the deadline, relying on these proven components was the practical choice.</li>
+                    </ul>
+                    <h4 class="text-primary mb-2">2.3 Waypoint list, heading convention &amp; motion script</h4>
+                    <p class="text-justify mb-4">
+                        I added an intermediate waypoint at (2, –1) to enable a precise 90° descent to (2, –3), ensuring smoother navigation through the course. 
+                        The robot begins facing –X, with the DMP unit initialized so that –X corresponds to 0° yaw. 
+                        After an initial 45° counterclockwise rotation, the robot’s nose aligns with the first diagonal segment, 
+                        and each subsequent turn follows the relative angles specified in the script. 
+                        Note that the rotation values in the script represent incremental angles to the next waypoint, not absolute headings with respect to the –X axis.
+                        The following images show the waypoint list and an illustrative diagram. Note that the triangle means the ToF sensor direction.
+
+                    </p>
+                    <img src="assets/img/portfolio/Lab12/image1.png" class="img-fluid" style="max-width:500px">
+                    <img src="assets/img/portfolio/Lab12/detailed.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+
+                    <h4 class="text-primary mb-2">2.4 Range-sensor placement &amp; distance choice</h4>
+                    <p class="text-justify mb-4">
+                        Based on the <a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf" target="_blank">datasheet</a>, the front VL53L1X is rated for 3.6 m in darkness but only 0.73 m under bright light. 
+                        When the robot started approximately 2.2 meters (8 grid cells) from the North-East wall, the sensor occasionally returned 0 mm or NaN values. 
+                        These anomalies disrupted the distance PID control, causing it to misinterpret the readings and back away prematurely.
+                        I fixed this by reversing the start pose: the bumper
+                        now begins 30 cm from the west wall and the robot first backs up. At that range the reading is a steady
+                        300 mm, the PID behaves, and every later set-point is below the measurement ceiling.
+                    </p>
+                    <img src="assets/img/portfolio/Lab12/image7.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+
+                    </div>
+                </div>
+
+                <!-- 3 Implementation -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">3. Implementation</h3>
+
+                    <h4 class="text-primary mb-2">3.1 Arduino Side</h4>
+                    <p class="text-justify mb-4">
+                        I reused the PID controllers from Labs 5 and 6 and added a timeout so no loop can run indefinitely.
+                        Four BLE commands drive the whole lab:
+                    </p>
+                    <ul class="text-left mb-4">
+                        <li><code>SET_ORIENTATION_GAINS</code> – loads K<sub>p</sub> | K<sub>i</sub> | K<sub>d</sub> | targetYaw</li>
+                        <li><code>START_ORIENTATION_CONTROL</code> – arms the yaw PID and clears it when the error is small or the timer expires</li>
+                        <li><code>SET_PID_GAINS</code> – loads K<sub>p</sub> | K<sub>i</sub> | K<sub>d</sub> | targetDistance_mm for the ToF loop</li>
+                        <li><code>START_PID_CONTROL</code> – runs the distance loop for a fixed duration, then stops both motors</li>
+                    </ul>
+                    <p class="text-justify mb-4">
+                        And here are the core functions (in the order of distance PID control, orientation PID control, and the main loop):
+                    </p>
+                    <img src="assets/img/portfolio/Lab12/image9.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+
+                    <img src="assets/img/portfolio/Lab12/image6.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+
+                    <img src="assets/img/portfolio/Lab12/image5.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+
+                    <h4 class="text-primary mb-2">3.2 Jupyter Side</h4>
+                    <p class="text-justify mb-4">
+                        On the host I wrapped each command in a small helper so the notebook reads like a script rather than a UART log.
+                        I keep two gain sets: <em>normal</em> (K<sub>p</sub>=1.5, K<sub>i</sub>=0.0025, K<sub>d</sub>=5) and
+                        <em>high</em> (1.8 / 0 / 6) for 90° turns. During execution the script loops through the
+                        <code>SCRIPT</code> list, applies the appropriate gains, waits for the yaw move to finish, then
+                        launches the distance move.
+                    </p>
+                    <img src="assets/img/portfolio/Lab12/image3.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+                    <img src="assets/img/portfolio/Lab12/image2.png" class="img-fluid" style="max-width:500px">
+                    <div class="empty-line"></div>
+                    </div>
+                </div>
+
+                <!-- 4 Results -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">4. Results</h3>
+                    <p class="text-justify mb-4">
+                    Each tile on the Fast-Robots course measures one foot (0.304 m). I started every trial with the robot’s center positioned over the first waypoint (–4, –3), 
+                    its nose aligned toward the –X axis, and the front ToF sensor approximately 30 cm from the west wall. In this initial pose, the sensor consistently returned a clean 300 mm reading, 
+                    ensuring immediate stability for the distance PID control. I conducted the full script about a dozen times. In nearly every run, the robot successfully navigated through the first four waypoints without any issues: 
+                    it reached (–2, –1), then (1, –1), advanced to (2, –1), and finally reversed to (2, –3). 
+                    This segment took approximately 20 seconds, and the linked video demonstrates a representative pass.
+                    </p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" 
+                                src="https://www.youtube.com/embed/nq5KKXG626w" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="text-justify mb-4">
+                        The run failed at the next command—a 90° left turn to face +Y. Two failure modes appeared. Usually the
+                        yaw loop overshot by 25–30°, corrected, then overshot the other way while the distance loop still ran,
+                        so the motors fought each other and the robot stalled. In other attempts the distance loop never
+                        released control, and the yaw command was skipped. Starting directly at (5, –3) reproduced the same
+                        pattern: the first 90° succeeded, the next stalled at (5, 3).
+                    </p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" 
+                                src="https://www.youtube.com/embed/0DP2743Wh8g" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="text-justify mb-4">
+                        Because each PID works in isolation, I blame two intertwined problems. The normal yaw gains may be too
+                        soft for a full 90° step, yet the aggressive set overshoots even more. And the hand-timed
+                        <code>time.sleep()</code> gaps in the notebook cannot guarantee that the ToF loop has finished before
+                        the yaw command arrives. Unfortunately, the competing moves all stop near 330 mm, so the clash is
+                        difficult to spot in the logs.
+                    </p>
+                    <p class="text-justify mb-4">
+                        I lengthened the wait times and tried several gain schedules, but none produced a repeatable fix. 
+                    </p>
+                    <p class="text-justify mb-4">
+                        Since one of my motor's driver board's connection was loose, I burned my code on my classmate Shuchang Wen's robot car and do a test as the following video.
+                        You can see that the robot car can follow the path much better now, especially the turning, but the hard to stop in the last 2 long distance. This is because the parameters
+                        of the distance PID control are not well tuned for the new car. Unfortunately, I don't have extra time to tune it.
+                    </p>    
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" 
+                                src="https://www.youtube.com/embed/MAyJwJsSnz0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- 5 Extra Discussion -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">5. Extra Discussion</h3>
+                    <p class="text-justify mb-4">
+                        A conversation with my classmate Shuchang Wen highlighted a likely contributor to the ToF glitches. The VL53L1X does
+                        not emit a pencil-thin beam; its field of view is a 27° cone, and the sensor reports the distance to the
+                        nearest reflector inside that cone, as the following <a href="https://tofsensors.com/blogs/tof-sensor-knowledge/how-does-a-tof-work-detailed-analysis-and-applications?srsltid=AfmBOootgJCe-gE0tTzq_PBX4HIcNUMvKkUPCYd_5uLUEaPUWcEuqAUx">image</a>
+                        shown. In my build the module sits a few millimetres behind the bumper and
+                        slightly higher than the chassis floor. When the robot pitches forward the lower half of the cone can
+                        strike the ground right in front of the wheels, or a chassis cheek can slide into the side of the cone
+                        during a sharp turn. Either case produces a spuriously short reading or NaN, which confuses the
+                        distance PID. Mounting the board flush with the bumper and adding a simple shroud would keep the cone
+                        clear of the robot’s own body.
+                    </p>
+                    <img src="assets/img/portfolio/Lab12/image8.jpg"
+                            alt="Front view of robot and ToF sensor" class="img-fluid" style="max-width:520px;">
+                    <div class="empty-line"></div>
+                        <img src="assets/img/portfolio/Lab12/image4.png"
+                            alt="ToF sensor" class="img-fluid" style="max-width:520px;">
+                    </div>
+                </div>
+
+                <!-- 6 Conclusion -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">6. Conclusion</h3>
+                    <p class="text-justify mb-4">
+                        The robot was almost able to follow a pre-defined path through the course, but the yaw and distance PID control was not robust enough to handle all
+                        situations. The next step would be to improve the PID tuning and add a more sophisticated
+                        path-planning algorithm that can adapt to unexpected obstacles or changes in the environment.
+
+                        I am deeply grateful to Professor Farrell and all the TAs for their guidance and support throughout this course. 
+                        I also want to thank my classmates for their collaboration and the insightful discussions on the Ed platform, 
+                        which greatly enhanced my learning experience.
+                    </p>
+                    </div>
+
+                <!-- 7 Reference-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                    <h3 class="text-center text-primary mb-3">7. Reference</h3>
+                    <p class="text-justify mb-4">
+                        <ul>
+                            <li><a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf" target="_blank">VL53L1X Datasheet</a></li>
+                            <li><a href="https://tofsensors.com/blogs/tof-sensor-knowledge/how-does-a-tof-work-detailed-analysis-and-applications?srsltid=AfmBOootgJCe-gE0tTzq_PBX4HIcNUMvKkUPCYd_5uLUEaPUWcEuqAUx" target="_blank">Distance measurement with ToF sensor VL53L1X</a></li>
+                            <li><a href="https://nanshanvv.github.io/FastRobots/" target="_blank">Shuchang Wen</a></li>
+                        </ul>
+                    </p>
+                    </div>
+                <!-- Close Button -->
+                <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">
+                        <i class="fas fa-times fa-fw"></i> Close Window
+                    </button>
+                    </div>
+                </div>
+
+                </div><!-- /.container -->
+            </div><!-- /.modal-body -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- End Lab 12 Modal -->
         <section class="page-section" id="contact">
             <div class="container">
                 <!-- Contact Section Heading-->
